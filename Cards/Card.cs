@@ -14,6 +14,7 @@ namespace Cards
         public string ShortName { get; set; }
         public string Suit { get; set; }
         public int Value { get; set; }
+        public int DealValue { get; set; }
 
         #endregion
 

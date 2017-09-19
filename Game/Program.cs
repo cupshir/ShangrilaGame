@@ -5,46 +5,59 @@ using System.Text;
 using System.Threading.Tasks;
 using Cards;
 
-namespace Game
+namespace ConsoleGame
 {
     class Program
     {
         static void Main( string[] args )
         {
-            Deck gameDeck = Deck.BuildDecks(1);
-            
+            List<Player> players = Player.CreateTestPlayers();
+
+            Game newGame = Game.CreateGame( players, 2 );
+           
                         
-            if (gameDeck != null )
+            if (newGame.GameDeck.Cards != null )
             {
-                Console.WriteLine( "Total Cards " + gameDeck.Cards.Count );
+                //Console.WriteLine( "Total Cards " + newGame.GameDeck.Cards.Count );
+                //Console.WriteLine();
+
+                //Deck.PrintDeck( newGame.GameDeck );
+
+                //Player.PrintPlayers( newGame.Players );
+
+                //Console.WriteLine( "Shuffling..." );
+                //Console.WriteLine();
+
+                //newGame.GameDeck = newGame.GameDeck.RiffleShuffleDeck( newGame.GameDeck );
+
+                //Deck.PrintDeck( newGame.GameDeck );
+
+                //Console.WriteLine( "After Shuffling..." );
+                //Console.WriteLine();
+
+                //Deck.PrintDeck( newGame.GameDeck );
+
+                //newGame.GameDeck = newGame.GameDeck.RiffleShuffleDeck( newGame.GameDeck );
+
+                //Console.WriteLine( "After Shuffling..." );
+                //Console.WriteLine();
+
+                //Deck.PrintDeck( newGame.GameDeck );
+                //newGame.GameDeck = newGame.GameDeck.RiffleShuffleDeck( newGame.GameDeck );
+
+                //Console.WriteLine( "After Shuffling..." );
+                //Console.WriteLine();
+
+                //Deck.PrintDeck( newGame.GameDeck );
+
+
+                Game.DetermineDealer( newGame );
+
+                Console.WriteLine();
+                Console.WriteLine( "Dealer is...." );
                 Console.WriteLine();
 
-                Deck.PrintDeck( gameDeck );
-                
-                Console.WriteLine( "Shuffling..." );
-                Console.WriteLine();
-
-                gameDeck = gameDeck.RiffleShuffleDeck( gameDeck );
-
-                Deck.PrintDeck( gameDeck );
-
-                Console.WriteLine( "After Shuffling..." );
-                Console.WriteLine();
-
-                Deck.PrintDeck( gameDeck );
-
-                gameDeck = gameDeck.RiffleShuffleDeck( gameDeck );
-
-                Console.WriteLine( "After Shuffling..." );
-                Console.WriteLine();
-
-                Deck.PrintDeck( gameDeck );
-                gameDeck = gameDeck.RiffleShuffleDeck( gameDeck );
-
-                Console.WriteLine( "After Shuffling..." );
-                Console.WriteLine();
-
-                Deck.PrintDeck( gameDeck );
+                Player.PrintPlayers( newGame.Players );
 
             }
             else
@@ -55,5 +68,8 @@ namespace Game
             Console.ReadLine();
 
         }
+
+
     }
+
 }

@@ -52,6 +52,7 @@ namespace Cards
                     card.Name = GetName( i );
                     card.ShortName = GetShortName( i );
                     card.Value = GetValue( i );
+                    card.DealValue = i;
 
                     deck.Cards.Add( card );
                 }
@@ -134,16 +135,32 @@ namespace Cards
             
             // Copy cards into the two decks
             int count = 0;
+            int random = _rng.Next( 0, 100 );
             foreach ( Card card in deck.Cards )
             {
                 count++;
-                if ( count <= ( deck.Cards.Count / 2 ))
+                // Use random number to mix up which deck gets first half of cards
+                if(random > 50 )
                 {
-                    firstHalf.Cards.Add( card );
+                    if ( count <= ( deck.Cards.Count / 2 ) )
+                    {
+                        firstHalf.Cards.Add( card );
+                    }
+                    else
+                    {
+                        secondHalf.Cards.Add( card );
+                    }
                 }
                 else
                 {
-                    secondHalf.Cards.Add( card );
+                    if ( count <= ( deck.Cards.Count / 2 ) )
+                    {
+                        secondHalf.Cards.Add( card );
+                    }
+                    else
+                    {
+                        firstHalf.Cards.Add( card );
+                    }
                 }
             }
 
@@ -158,7 +175,7 @@ namespace Cards
                 return deck;
             }
             
-            // Recombine the two decks in random chunks (Simulate shuffling)
+            // Recombine the two decks in random chunks (Simulate riffle shuffling)
             int totalCount = firstHalf.Cards.Count + secondHalf.Cards.Count;
 
             while ( deck.Cards.Count != totalCount )
@@ -215,16 +232,8 @@ namespace Cards
         {
             int stackNumber;
            
-            int roll = _rng.Next( 0, 100 );
-            if (roll > 100 )
-            {
-                stackNumber = 5;
-            }
-            else if (roll > 75 && roll < 101 )
-            {
-                stackNumber = 4;
-            }
-            else if (roll > 50 && roll < 76 )
+            int roll = _rng.Next( 0, 75 );
+            if (roll > 50 && roll < 76 )
             {
                 stackNumber = 3;
             }
