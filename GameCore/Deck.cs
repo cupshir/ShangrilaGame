@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cards
+namespace GameCore
 {
     public class Deck
     {
@@ -12,9 +12,7 @@ namespace Cards
 
         public List<Card> Cards { get; set; }
 
-        #endregion
-
-        private Random _rng = new Random();
+        #endregion        
 
         public static Deck BuildDecks(int numberToBuild)
         {
@@ -58,12 +56,23 @@ namespace Cards
                 }
             }
 
-            // Add in jokers here...
+            // Add 2 jokers
+            for ( int i = 0; i < 2; i++ )
+            {
+                Card card = new Card();
+                card.Suit = "Wild";
+                card.Name = "Joker";
+                card.ShortName = "J";
+                card.Value = 25;
+                card.DealValue = 15;
+
+                deck.Cards.Add( card );
+            }
 
             return deck;
         }
 
-        private static string GetName( int i )
+        public static string GetName( int i )
         {
             if ( i == 14 )
             {
@@ -87,7 +96,7 @@ namespace Cards
             }            
         }
 
-        private static string GetShortName( int i )
+        public static string GetShortName( int i )
         {
             if ( i == 14 )
             {
@@ -111,7 +120,7 @@ namespace Cards
             }
         }
 
-        private static int GetValue( int i )
+        public static int GetValue( int i )
         {
             if ( i == 14 )
             {
@@ -127,20 +136,22 @@ namespace Cards
             }
         }
 
-        public Deck RiffleShuffleDeck(Deck deck )
+        public static Deck RiffleShuffleDeck( Deck deck )
         {
+            Random _rng = new Random();
+
             // Creat empty decks to split into
             Deck firstHalf = new Deck() { Cards = new List<Card>() };
             Deck secondHalf = new Deck() { Cards = new List<Card>() };
             
             // Copy cards into the two decks
             int count = 0;
-            int random = _rng.Next( 0, 100 );
+            int random = _rng.Next( 0, 1000 );
             foreach ( Card card in deck.Cards )
             {
                 count++;
                 // Use random number to mix up which deck gets first half of cards
-                if(random > 50 )
+                if(random > 500 )
                 {
                     if ( count <= ( deck.Cards.Count / 2 ) )
                     {
@@ -228,8 +239,56 @@ namespace Cards
             return deck;
         }
 
-        private int GetRandomStack()
+        public static Deck OverhandShuffleDeck( Deck deck )
         {
+            Deck tempDeck = new Deck() { Cards = new List<Card>() };
+
+            Random _rng = new Random();
+
+            int numberOfShuffles = _rng.Next( 2, 5 );
+
+            for ( int j = 0; j < numberOfShuffles; j++ )
+            {
+                tempDeck.Cards.Clear();
+
+                // Get Stack size to shuffle
+                int stackNumber = _rng.Next( ((deck.Cards.Count/4)/3), (deck.Cards.Count / 4));
+
+                // Get starting point in deck
+                int startingPoint = _rng.Next( 0, deck.Cards.Count );
+
+                // Move cards from deck to temp deck, from starting point
+                if ( ( startingPoint + stackNumber ) < deck.Cards.Count )
+                {
+                    for ( int i = startingPoint; i < ( startingPoint + stackNumber ); i++ )
+                    {
+                        Card card = deck.Cards[startingPoint];
+                        tempDeck.Cards.Add( card );
+                        deck.Cards.Remove( card );
+                    }
+                }
+                else
+                {
+                    for ( int i = startingPoint; i < deck.Cards.Count; i++ )
+                    {
+                        Card card = deck.Cards[startingPoint];
+                        tempDeck.Cards.Add( card );
+                        deck.Cards.Remove( card );
+                    }
+                }
+
+                // Move stack to top of deck
+                tempDeck.Cards.AddRange( deck.Cards );
+                deck.Cards.Clear();
+                deck.Cards.AddRange( tempDeck.Cards );
+            }
+            return deck;
+        }
+
+        private static int GetRandomStack()
+        {
+            Random _rng = new Random();
+
             int stackNumber;
            
             int roll = _rng.Next( 0, 75 );
@@ -247,32 +306,6 @@ namespace Cards
             }
 
             return stackNumber;
-        }
-
-        public static void PrintDeck(Deck deck)
-        {
-            if(deck.Cards.Count != 0 )
-            {
-                int count = 0;
-                foreach ( Card card in deck.Cards )
-                {
-                    count++;
-
-                    Console.Write( Card.PrintCard( card ) );
-                    Console.Write( " " );
-                    if ( count == 13 )
-                    {
-                        Console.WriteLine();
-                        count = 0;
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine( "No Cards in the deck" );
-            }
-
-            Console.WriteLine();
         }
     }
 }

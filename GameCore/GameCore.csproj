@@ -7,8 +7,8 @@
     <ProjectGuid>{337553D7-DFC9-4755-8E65-BADF7B32C341}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Cards</RootNamespace>
-    <AssemblyName>Cards</AssemblyName>
+    <RootNamespace>GameCore</RootNamespace>
+    <AssemblyName>GameCore</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,6 +43,7 @@
     <Compile Include="Card.cs" />
     <Compile Include="Deck.cs" />
     <Compile Include="Game.cs" />
+    <Compile Include="GameManagement.cs" />
     <Compile Include="Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

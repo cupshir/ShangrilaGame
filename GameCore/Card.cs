@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Cards
+namespace GameCore
 {
     public class Card
     {
@@ -17,16 +17,6 @@ namespace Cards
         public int DealValue { get; set; }
 
         #endregion
-
-        public static string PrintCard(Card card )
-        {
-            return String.Format( "{0}{1}", card.ShortName, card.Suit[0] );
-        }
-
-        public static string PrintCardFullInfo(Card card )
-        {
-            return String.Format( "{0} of {1} worth {2}", card.Name, card.Suit, card.Value );
-        }
 
     }
 }
