@@ -48,7 +48,7 @@ namespace GameCore
                     Card card = new Card();
                     card.Suit = suit;
                     card.Name = GetName( i );
-                    card.ShortName = GetShortName( i );
+                    card.ShortName = GetShortName( i ) + suit[0];
                     card.Value = GetValue( i );
                     card.DealValue = i;
 
@@ -62,7 +62,7 @@ namespace GameCore
                 Card card = new Card();
                 card.Suit = "Wild";
                 card.Name = "Joker";
-                card.ShortName = "J";
+                card.ShortName = "JW";
                 card.Value = 25;
                 card.DealValue = 15;
 

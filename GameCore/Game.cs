@@ -10,6 +10,6 @@ namespace GameCore
     {
         public List<Player> Players { get; set; }
         public Deck GameDeck { get; set; }
-        
+        public Deck DiscardPile { get; set; }
     }
 }

@@ -13,7 +13,8 @@ namespace GameCore
             Game newGame = new Game()
             {
                 Players = players,
-                GameDeck = Deck.BuildDecks( numberOfDecks )
+                GameDeck = Deck.BuildDecks( numberOfDecks ),
+                DiscardPile = new Deck() { Cards = new List<Card>() }
             };
 
             return newGame;
@@ -55,18 +56,6 @@ namespace GameCore
                 dealerIndex = game.Players.FindIndex( a => a.SeatNumber == dealer.SeatNumber );
 
                 // Set the current turn for player after dealer
-                //// if last player in list is dealer, set first player in list as current turn
-                //if((dealerIndex + 1) == game.Players.Count )
-                //{
-                //    game.Players[0].CurrentTurn = true;
-                //}
-                //else
-                //{
-                //    // set the player in list after dealer as current turn
-                //    game.Players[( dealerIndex + 1 )].CurrentTurn = true;
-                //}
-
-                // new way
                 int currentPlayerIndex = (dealerIndex +1) % game.Players.Count;
                 game.Players[currentPlayerIndex].CurrentTurn = true;
 
@@ -131,7 +120,7 @@ namespace GameCore
 
         public static Game DrawCard( Game game, int player )
         {
-            // set playerIndex
+            // set playerIndex (index is 1 less then player number)
             int playerIndex = player - 1;
 
             // Get top card
@@ -142,6 +131,36 @@ namespace GameCore
 
             // remove card from game deck
             game.GameDeck.Cards.Remove( card );
+
+            return game;
+        }
+
+        public static Game DrawDiscardCard( Game game, int player )
+        {
+            // set playerIndex (index is 1 less then player number)
+            int playerIndex = player - 1;
+
+            // Get top card of discard pile, should be last card added to list
+            Card card = game.DiscardPile.Cards[( game.DiscardPile.Cards.Count - 1 )];
+
+            // add card to player hand
+            game.Players[playerIndex].Hand.Add( card );
+
+            // remove card from discard pile
+            game.DiscardPile.Cards.Remove( card );
+
+            return game;
+        }
+
+
+        public static Game DiscardCard( Game game, int playerIndex, Card card )
+        {
+            
+            // add card to discard pile
+            game.DiscardPile.Cards.Add( card );
+
+            // remove card from player hand
+            game.Players[playerIndex].Hand.Remove( card );
 
             return game;
         }
@@ -166,7 +185,7 @@ namespace GameCore
                 Card card = new Card();
                 card.Suit = "Spades";
                 card.Name = Deck.GetName( i );
-                card.ShortName = Deck.GetShortName( i );
+                card.ShortName = Deck.GetShortName( i ) + card.Suit[0];
                 card.Value = Deck.GetValue( i );
                 card.DealValue = i;
                 deck.Cards.Add( card );
@@ -176,7 +195,7 @@ namespace GameCore
             Card joker = new Card();
             joker.Suit = "Wild";
             joker.Name = "Joker";
-            joker.ShortName = "J";
+            joker.ShortName = "JW";
             joker.Value = 25;
             joker.DealValue = 15;
             deck.Cards.Add( joker );

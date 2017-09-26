@@ -72,7 +72,7 @@
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 10F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 70F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 20F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(1195, 758);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(1195, 811);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // flpButtons
@@ -82,9 +82,9 @@
             this.flpButtons.Controls.Add(this.btnStart);
             this.flpButtons.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpButtons.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flpButtons.Location = new System.Drawing.Point(351, 608);
+            this.flpButtons.Location = new System.Drawing.Point(351, 651);
             this.flpButtons.Name = "flpButtons";
-            this.flpButtons.Size = new System.Drawing.Size(390, 147);
+            this.flpButtons.Size = new System.Drawing.Size(390, 157);
             this.flpButtons.TabIndex = 0;
             // 
             // btnCancel
@@ -123,7 +123,7 @@
             this.lblStartGame.Dock = System.Windows.Forms.DockStyle.Fill;
             this.lblStartGame.Location = new System.Drawing.Point(351, 0);
             this.lblStartGame.Name = "lblStartGame";
-            this.lblStartGame.Size = new System.Drawing.Size(390, 75);
+            this.lblStartGame.Size = new System.Drawing.Size(390, 81);
             this.lblStartGame.TabIndex = 1;
             this.lblStartGame.Text = "Start a New Game";
             this.lblStartGame.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
@@ -133,9 +133,9 @@
             this.flpForm.Controls.Add(this.tlpInputForm);
             this.flpForm.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flpForm.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
-            this.flpForm.Location = new System.Drawing.Point(351, 78);
+            this.flpForm.Location = new System.Drawing.Point(351, 84);
             this.flpForm.Name = "flpForm";
-            this.flpForm.Size = new System.Drawing.Size(390, 524);
+            this.flpForm.Size = new System.Drawing.Size(390, 561);
             this.flpForm.TabIndex = 4;
             // 
             // tlpInputForm
@@ -305,7 +305,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1195, 758);
+            this.ClientSize = new System.Drawing.Size(1195, 811);
             this.Controls.Add(this.tableLayoutPanel1);
             this.Name = "StartGameForm";
             this.Text = "Start New Game";
