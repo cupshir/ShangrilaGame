@@ -288,13 +288,8 @@ namespace WinApp
             // get playernumber from button
             int playerNumber = Convert.ToInt32(ExtractNumber( control.Name.ToString() ));
 
-            // get top card from deck
-            Card card = _game.GameDeck.Cards[0];
-
-            // add card to player hand
-            _game.Players[(playerNumber-1)].Hand.Add( card );
-            // remove card from deck
-            _game.GameDeck.Cards.Remove( card );
+            // draw card
+            _game = GameManagement.DrawCard( _game, playerNumber );
 
             // hide draw button
             control.Visible = false;

@@ -55,16 +55,21 @@ namespace GameCore
                 dealerIndex = game.Players.FindIndex( a => a.SeatNumber == dealer.SeatNumber );
 
                 // Set the current turn for player after dealer
-                // if last player in list is dealer, set first player in list as current turn
-                if((dealerIndex + 1) == game.Players.Count )
-                {
-                    game.Players[0].CurrentTurn = true;
-                }
-                else
-                {
-                    // set the player in list after dealer as current turn
-                    game.Players[( dealerIndex + 1 )].CurrentTurn = true;
-                }
+                //// if last player in list is dealer, set first player in list as current turn
+                //if((dealerIndex + 1) == game.Players.Count )
+                //{
+                //    game.Players[0].CurrentTurn = true;
+                //}
+                //else
+                //{
+                //    // set the player in list after dealer as current turn
+                //    game.Players[( dealerIndex + 1 )].CurrentTurn = true;
+                //}
+
+                // new way
+                int currentPlayerIndex = (dealerIndex +1) % game.Players.Count;
+                game.Players[currentPlayerIndex].CurrentTurn = true;
+
             }
             else
             {
@@ -94,6 +99,10 @@ namespace GameCore
                 playerHands.Add( player );
             }
 
+            //
+            // homework build player list in single while loop with Mod
+            //
+
             // Deal 11 cards to the players removing the cards from the deck
             for ( int i = 0; i < 11; i++ )
             {
@@ -117,6 +126,23 @@ namespace GameCore
             }
             
             // return the updated game
+            return game;
+        }
+
+        public static Game DrawCard( Game game, int player )
+        {
+            // set playerIndex
+            int playerIndex = player - 1;
+
+            // Get top card
+            Card card = game.GameDeck.Cards[0];
+
+            // add card to player hand
+            game.Players[playerIndex].Hand.Add( card );
+
+            // remove card from game deck
+            game.GameDeck.Cards.Remove( card );
+
             return game;
         }
 
