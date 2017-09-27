@@ -58,6 +58,8 @@ namespace WinApp
             this.flpPlayer7Buttons = new System.Windows.Forms.FlowLayoutPanel();
             this.btnPlayer7DrawDiscard = new System.Windows.Forms.Button();
             this.btnPlayer7Draw = new System.Windows.Forms.Button();
+            this.btnPlayer7Buy = new System.Windows.Forms.Button();
+            this.btnPlayer7AllowBuy = new System.Windows.Forms.Button();
             this.rtbPlayer7Name = new System.Windows.Forms.RichTextBox();
             this.pnlPlayer6 = new System.Windows.Forms.Panel();
             this.tlpPlayer6Hand = new System.Windows.Forms.TableLayoutPanel();
@@ -82,6 +84,8 @@ namespace WinApp
             this.flpPlayer6Buttons = new System.Windows.Forms.FlowLayoutPanel();
             this.btnPlayer6DrawDiscard = new System.Windows.Forms.Button();
             this.btnPlayer6Draw = new System.Windows.Forms.Button();
+            this.btnPlayer6Buy = new System.Windows.Forms.Button();
+            this.btnPlayer6AllowBuy = new System.Windows.Forms.Button();
             this.rtbPlayer6Name = new System.Windows.Forms.RichTextBox();
             this.pnlPlayer5 = new System.Windows.Forms.Panel();
             this.tlpPlayer5Hand = new System.Windows.Forms.TableLayoutPanel();
@@ -106,6 +110,8 @@ namespace WinApp
             this.flpPlayer5Buttons = new System.Windows.Forms.FlowLayoutPanel();
             this.btnPlayer5DrawDiscard = new System.Windows.Forms.Button();
             this.btnPlayer5Draw = new System.Windows.Forms.Button();
+            this.btnPlayer5Buy = new System.Windows.Forms.Button();
+            this.btnPlayer5AllowBuy = new System.Windows.Forms.Button();
             this.rtbPlayer5Name = new System.Windows.Forms.RichTextBox();
             this.pnlPlayer4 = new System.Windows.Forms.Panel();
             this.tlpPlayer4Hand = new System.Windows.Forms.TableLayoutPanel();
@@ -130,6 +136,8 @@ namespace WinApp
             this.flpPlayer4Buttons = new System.Windows.Forms.FlowLayoutPanel();
             this.btnPlayer4DrawDiscard = new System.Windows.Forms.Button();
             this.btnPlayer4Draw = new System.Windows.Forms.Button();
+            this.btnPlayer4Buy = new System.Windows.Forms.Button();
+            this.btnPlayer4AllowBuy = new System.Windows.Forms.Button();
             this.rtbPlayer4Name = new System.Windows.Forms.RichTextBox();
             this.pnlPlayer3 = new System.Windows.Forms.Panel();
             this.tlpPlayer3Hand = new System.Windows.Forms.TableLayoutPanel();
@@ -154,6 +162,8 @@ namespace WinApp
             this.flpPlayer3Buttons = new System.Windows.Forms.FlowLayoutPanel();
             this.btnPlayer3DrawDiscard = new System.Windows.Forms.Button();
             this.btnPlayer3Draw = new System.Windows.Forms.Button();
+            this.btnPlayer3Buy = new System.Windows.Forms.Button();
+            this.btnPlayer3AllowBuy = new System.Windows.Forms.Button();
             this.rtbPlayer3Name = new System.Windows.Forms.RichTextBox();
             this.pnlPlayer2 = new System.Windows.Forms.Panel();
             this.tlpPlayer2Hand = new System.Windows.Forms.TableLayoutPanel();
@@ -178,6 +188,8 @@ namespace WinApp
             this.flpPlayer2Buttons = new System.Windows.Forms.FlowLayoutPanel();
             this.btnPlayer2DrawDiscard = new System.Windows.Forms.Button();
             this.btnPlayer2Draw = new System.Windows.Forms.Button();
+            this.btnPlayer2Buy = new System.Windows.Forms.Button();
+            this.btnPlayer2AllowBuy = new System.Windows.Forms.Button();
             this.rtbPlayer2Name = new System.Windows.Forms.RichTextBox();
             this.pnlPlayer1 = new System.Windows.Forms.Panel();
             this.tlpPlayer1Hand = new System.Windows.Forms.TableLayoutPanel();
@@ -202,6 +214,8 @@ namespace WinApp
             this.flpPlayer1Buttons = new System.Windows.Forms.FlowLayoutPanel();
             this.btnPlayer1DrawDiscard = new System.Windows.Forms.Button();
             this.btnPlayer1Draw = new System.Windows.Forms.Button();
+            this.btnPlayer1Buy = new System.Windows.Forms.Button();
+            this.btnPlayer1AllowBuy = new System.Windows.Forms.Button();
             this.rtbPlayer1Name = new System.Windows.Forms.RichTextBox();
             this.flowLayoutPanel1 = new System.Windows.Forms.FlowLayoutPanel();
             this.btnRifleShuffle = new System.Windows.Forms.Button();
@@ -209,20 +223,42 @@ namespace WinApp
             this.btnDeal = new System.Windows.Forms.Button();
             this.btnPickDealer = new System.Windows.Forms.Button();
             this.btnClose = new System.Windows.Forms.Button();
-            this.btnPlayer3Buy = new System.Windows.Forms.Button();
-            this.btnPlayer3AllowBuy = new System.Windows.Forms.Button();
-            this.btnPlayer2Buy = new System.Windows.Forms.Button();
-            this.btnPlayer2AllowBuy = new System.Windows.Forms.Button();
-            this.btnPlayer1Buy = new System.Windows.Forms.Button();
-            this.btnPlayer1AllowBuy = new System.Windows.Forms.Button();
-            this.btnPlayer4Buy = new System.Windows.Forms.Button();
-            this.btnPlayer4AllowBuy = new System.Windows.Forms.Button();
-            this.btnPlayer5Buy = new System.Windows.Forms.Button();
-            this.btnPlayer5AllowBuy = new System.Windows.Forms.Button();
-            this.btnPlayer6Buy = new System.Windows.Forms.Button();
-            this.btnPlayer6AllowBuy = new System.Windows.Forms.Button();
-            this.btnPlayer7Buy = new System.Windows.Forms.Button();
-            this.btnPlayer7AllowBuy = new System.Windows.Forms.Button();
+            this.lblGameRound = new System.Windows.Forms.Label();
+            this.tlpPlayer1Table = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpPlayer2Table = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpPlayer3Table = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpPlayer4Table = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpPlayer5Table = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpPlayer6Table = new System.Windows.Forms.TableLayoutPanel();
+            this.tlpPlayer7Table = new System.Windows.Forms.TableLayoutPanel();
+            this.rtbPlayer1Table1 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer1Table2 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer1Table3 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer1Table4 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer2Table1 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer2Table2 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer2Table3 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer2Table4 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer3Table1 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer3Table2 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer3Table3 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer3Table4 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer4Table1 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer4Table2 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer4Table3 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer4Table4 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer5Table1 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer5Table2 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer5Table3 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer5Table4 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer6Table1 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer6Table2 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer6Table3 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer6Table4 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer7Table1 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer7Table2 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer7Table3 = new System.Windows.Forms.RichTextBox();
+            this.rtbPlayer7Table4 = new System.Windows.Forms.RichTextBox();
             this.tableLayoutPanel1.SuspendLayout();
             this.pnlDiscardPile.SuspendLayout();
             this.pnlPlayer7.SuspendLayout();
@@ -247,6 +283,13 @@ namespace WinApp
             this.tlpPlayer1Hand.SuspendLayout();
             this.flpPlayer1Buttons.SuspendLayout();
             this.flowLayoutPanel1.SuspendLayout();
+            this.tlpPlayer1Table.SuspendLayout();
+            this.tlpPlayer2Table.SuspendLayout();
+            this.tlpPlayer3Table.SuspendLayout();
+            this.tlpPlayer4Table.SuspendLayout();
+            this.tlpPlayer5Table.SuspendLayout();
+            this.tlpPlayer6Table.SuspendLayout();
+            this.tlpPlayer7Table.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -278,6 +321,7 @@ namespace WinApp
             // pnlDiscardPile
             // 
             this.pnlDiscardPile.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlDiscardPile.Controls.Add(this.lblGameRound);
             this.pnlDiscardPile.Controls.Add(this.rtbDiscardPile);
             this.pnlDiscardPile.Controls.Add(this.rtbDeck);
             this.pnlDiscardPile.Dock = System.Windows.Forms.DockStyle.Fill;
@@ -300,16 +344,16 @@ namespace WinApp
             // 
             this.rtbDeck.BackColor = System.Drawing.SystemColors.Control;
             this.rtbDeck.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.rtbDeck.Dock = System.Windows.Forms.DockStyle.Top;
-            this.rtbDeck.Location = new System.Drawing.Point(0, 0);
+            this.rtbDeck.Location = new System.Drawing.Point(0, 24);
             this.rtbDeck.Name = "rtbDeck";
-            this.rtbDeck.Size = new System.Drawing.Size(387, 135);
+            this.rtbDeck.Size = new System.Drawing.Size(387, 111);
             this.rtbDeck.TabIndex = 2;
             this.rtbDeck.Text = "Deck";
             // 
             // pnlPlayer7
             // 
             this.pnlPlayer7.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlPlayer7.Controls.Add(this.tlpPlayer7Table);
             this.pnlPlayer7.Controls.Add(this.tlpPlayer7Hand);
             this.pnlPlayer7.Controls.Add(this.flpPlayer7Buttons);
             this.pnlPlayer7.Controls.Add(this.rtbPlayer7Name);
@@ -572,6 +616,28 @@ namespace WinApp
             this.btnPlayer7Draw.Visible = false;
             this.btnPlayer7Draw.Click += new System.EventHandler(this.btnDraw_Click);
             // 
+            // btnPlayer7Buy
+            // 
+            this.btnPlayer7Buy.Location = new System.Drawing.Point(97, 32);
+            this.btnPlayer7Buy.Name = "btnPlayer7Buy";
+            this.btnPlayer7Buy.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayer7Buy.TabIndex = 3;
+            this.btnPlayer7Buy.Text = "Buy";
+            this.btnPlayer7Buy.UseVisualStyleBackColor = true;
+            this.btnPlayer7Buy.Visible = false;
+            this.btnPlayer7Buy.Click += new System.EventHandler(this.btnBuy_Click);
+            // 
+            // btnPlayer7AllowBuy
+            // 
+            this.btnPlayer7AllowBuy.Location = new System.Drawing.Point(16, 32);
+            this.btnPlayer7AllowBuy.Name = "btnPlayer7AllowBuy";
+            this.btnPlayer7AllowBuy.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayer7AllowBuy.TabIndex = 4;
+            this.btnPlayer7AllowBuy.Text = "Allow Buy";
+            this.btnPlayer7AllowBuy.UseVisualStyleBackColor = true;
+            this.btnPlayer7AllowBuy.Visible = false;
+            this.btnPlayer7AllowBuy.Click += new System.EventHandler(this.btnAllowBuy_Click);
+            // 
             // rtbPlayer7Name
             // 
             this.rtbPlayer7Name.BackColor = System.Drawing.SystemColors.Control;
@@ -585,6 +651,7 @@ namespace WinApp
             // pnlPlayer6
             // 
             this.pnlPlayer6.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlPlayer6.Controls.Add(this.tlpPlayer6Table);
             this.pnlPlayer6.Controls.Add(this.tlpPlayer6Hand);
             this.pnlPlayer6.Controls.Add(this.flpPlayer6Buttons);
             this.pnlPlayer6.Controls.Add(this.rtbPlayer6Name);
@@ -847,6 +914,28 @@ namespace WinApp
             this.btnPlayer6Draw.Visible = false;
             this.btnPlayer6Draw.Click += new System.EventHandler(this.btnDraw_Click);
             // 
+            // btnPlayer6Buy
+            // 
+            this.btnPlayer6Buy.Location = new System.Drawing.Point(97, 32);
+            this.btnPlayer6Buy.Name = "btnPlayer6Buy";
+            this.btnPlayer6Buy.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayer6Buy.TabIndex = 3;
+            this.btnPlayer6Buy.Text = "Buy";
+            this.btnPlayer6Buy.UseVisualStyleBackColor = true;
+            this.btnPlayer6Buy.Visible = false;
+            this.btnPlayer6Buy.Click += new System.EventHandler(this.btnBuy_Click);
+            // 
+            // btnPlayer6AllowBuy
+            // 
+            this.btnPlayer6AllowBuy.Location = new System.Drawing.Point(16, 32);
+            this.btnPlayer6AllowBuy.Name = "btnPlayer6AllowBuy";
+            this.btnPlayer6AllowBuy.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayer6AllowBuy.TabIndex = 4;
+            this.btnPlayer6AllowBuy.Text = "Allow Buy";
+            this.btnPlayer6AllowBuy.UseVisualStyleBackColor = true;
+            this.btnPlayer6AllowBuy.Visible = false;
+            this.btnPlayer6AllowBuy.Click += new System.EventHandler(this.btnAllowBuy_Click);
+            // 
             // rtbPlayer6Name
             // 
             this.rtbPlayer6Name.BackColor = System.Drawing.SystemColors.Control;
@@ -860,6 +949,7 @@ namespace WinApp
             // pnlPlayer5
             // 
             this.pnlPlayer5.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlPlayer5.Controls.Add(this.tlpPlayer5Table);
             this.pnlPlayer5.Controls.Add(this.tlpPlayer5Hand);
             this.pnlPlayer5.Controls.Add(this.flpPlayer5Buttons);
             this.pnlPlayer5.Controls.Add(this.rtbPlayer5Name);
@@ -1122,6 +1212,28 @@ namespace WinApp
             this.btnPlayer5Draw.Visible = false;
             this.btnPlayer5Draw.Click += new System.EventHandler(this.btnDraw_Click);
             // 
+            // btnPlayer5Buy
+            // 
+            this.btnPlayer5Buy.Location = new System.Drawing.Point(97, 32);
+            this.btnPlayer5Buy.Name = "btnPlayer5Buy";
+            this.btnPlayer5Buy.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayer5Buy.TabIndex = 3;
+            this.btnPlayer5Buy.Text = "Buy";
+            this.btnPlayer5Buy.UseVisualStyleBackColor = true;
+            this.btnPlayer5Buy.Visible = false;
+            this.btnPlayer5Buy.Click += new System.EventHandler(this.btnBuy_Click);
+            // 
+            // btnPlayer5AllowBuy
+            // 
+            this.btnPlayer5AllowBuy.Location = new System.Drawing.Point(16, 32);
+            this.btnPlayer5AllowBuy.Name = "btnPlayer5AllowBuy";
+            this.btnPlayer5AllowBuy.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayer5AllowBuy.TabIndex = 4;
+            this.btnPlayer5AllowBuy.Text = "Allow Buy";
+            this.btnPlayer5AllowBuy.UseVisualStyleBackColor = true;
+            this.btnPlayer5AllowBuy.Visible = false;
+            this.btnPlayer5AllowBuy.Click += new System.EventHandler(this.btnAllowBuy_Click);
+            // 
             // rtbPlayer5Name
             // 
             this.rtbPlayer5Name.BackColor = System.Drawing.SystemColors.Control;
@@ -1135,6 +1247,7 @@ namespace WinApp
             // pnlPlayer4
             // 
             this.pnlPlayer4.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlPlayer4.Controls.Add(this.tlpPlayer4Table);
             this.pnlPlayer4.Controls.Add(this.tlpPlayer4Hand);
             this.pnlPlayer4.Controls.Add(this.flpPlayer4Buttons);
             this.pnlPlayer4.Controls.Add(this.rtbPlayer4Name);
@@ -1397,6 +1510,28 @@ namespace WinApp
             this.btnPlayer4Draw.Visible = false;
             this.btnPlayer4Draw.Click += new System.EventHandler(this.btnDraw_Click);
             // 
+            // btnPlayer4Buy
+            // 
+            this.btnPlayer4Buy.Location = new System.Drawing.Point(97, 32);
+            this.btnPlayer4Buy.Name = "btnPlayer4Buy";
+            this.btnPlayer4Buy.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayer4Buy.TabIndex = 3;
+            this.btnPlayer4Buy.Text = "Buy";
+            this.btnPlayer4Buy.UseVisualStyleBackColor = true;
+            this.btnPlayer4Buy.Visible = false;
+            this.btnPlayer4Buy.Click += new System.EventHandler(this.btnBuy_Click);
+            // 
+            // btnPlayer4AllowBuy
+            // 
+            this.btnPlayer4AllowBuy.Location = new System.Drawing.Point(16, 32);
+            this.btnPlayer4AllowBuy.Name = "btnPlayer4AllowBuy";
+            this.btnPlayer4AllowBuy.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayer4AllowBuy.TabIndex = 4;
+            this.btnPlayer4AllowBuy.Text = "Allow Buy";
+            this.btnPlayer4AllowBuy.UseVisualStyleBackColor = true;
+            this.btnPlayer4AllowBuy.Visible = false;
+            this.btnPlayer4AllowBuy.Click += new System.EventHandler(this.btnAllowBuy_Click);
+            // 
             // rtbPlayer4Name
             // 
             this.rtbPlayer4Name.BackColor = System.Drawing.SystemColors.Control;
@@ -1410,6 +1545,7 @@ namespace WinApp
             // pnlPlayer3
             // 
             this.pnlPlayer3.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlPlayer3.Controls.Add(this.tlpPlayer3Table);
             this.pnlPlayer3.Controls.Add(this.tlpPlayer3Hand);
             this.pnlPlayer3.Controls.Add(this.flpPlayer3Buttons);
             this.pnlPlayer3.Controls.Add(this.rtbPlayer3Name);
@@ -1672,6 +1808,28 @@ namespace WinApp
             this.btnPlayer3Draw.Visible = false;
             this.btnPlayer3Draw.Click += new System.EventHandler(this.btnDraw_Click);
             // 
+            // btnPlayer3Buy
+            // 
+            this.btnPlayer3Buy.Location = new System.Drawing.Point(97, 32);
+            this.btnPlayer3Buy.Name = "btnPlayer3Buy";
+            this.btnPlayer3Buy.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayer3Buy.TabIndex = 2;
+            this.btnPlayer3Buy.Text = "Buy";
+            this.btnPlayer3Buy.UseVisualStyleBackColor = true;
+            this.btnPlayer3Buy.Visible = false;
+            this.btnPlayer3Buy.Click += new System.EventHandler(this.btnBuy_Click);
+            // 
+            // btnPlayer3AllowBuy
+            // 
+            this.btnPlayer3AllowBuy.Location = new System.Drawing.Point(16, 32);
+            this.btnPlayer3AllowBuy.Name = "btnPlayer3AllowBuy";
+            this.btnPlayer3AllowBuy.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayer3AllowBuy.TabIndex = 3;
+            this.btnPlayer3AllowBuy.Text = "Allow Buy";
+            this.btnPlayer3AllowBuy.UseVisualStyleBackColor = true;
+            this.btnPlayer3AllowBuy.Visible = false;
+            this.btnPlayer3AllowBuy.Click += new System.EventHandler(this.btnAllowBuy_Click);
+            // 
             // rtbPlayer3Name
             // 
             this.rtbPlayer3Name.BackColor = System.Drawing.SystemColors.Control;
@@ -1685,6 +1843,7 @@ namespace WinApp
             // pnlPlayer2
             // 
             this.pnlPlayer2.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlPlayer2.Controls.Add(this.tlpPlayer2Table);
             this.pnlPlayer2.Controls.Add(this.tlpPlayer2Hand);
             this.pnlPlayer2.Controls.Add(this.flpPlayer2Buttons);
             this.pnlPlayer2.Controls.Add(this.rtbPlayer2Name);
@@ -1947,6 +2106,28 @@ namespace WinApp
             this.btnPlayer2Draw.Visible = false;
             this.btnPlayer2Draw.Click += new System.EventHandler(this.btnDraw_Click);
             // 
+            // btnPlayer2Buy
+            // 
+            this.btnPlayer2Buy.Location = new System.Drawing.Point(97, 32);
+            this.btnPlayer2Buy.Name = "btnPlayer2Buy";
+            this.btnPlayer2Buy.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayer2Buy.TabIndex = 3;
+            this.btnPlayer2Buy.Text = "Buy";
+            this.btnPlayer2Buy.UseVisualStyleBackColor = true;
+            this.btnPlayer2Buy.Visible = false;
+            this.btnPlayer2Buy.Click += new System.EventHandler(this.btnBuy_Click);
+            // 
+            // btnPlayer2AllowBuy
+            // 
+            this.btnPlayer2AllowBuy.Location = new System.Drawing.Point(16, 32);
+            this.btnPlayer2AllowBuy.Name = "btnPlayer2AllowBuy";
+            this.btnPlayer2AllowBuy.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayer2AllowBuy.TabIndex = 4;
+            this.btnPlayer2AllowBuy.Text = "Allow Buy";
+            this.btnPlayer2AllowBuy.UseVisualStyleBackColor = true;
+            this.btnPlayer2AllowBuy.Visible = false;
+            this.btnPlayer2AllowBuy.Click += new System.EventHandler(this.btnAllowBuy_Click);
+            // 
             // rtbPlayer2Name
             // 
             this.rtbPlayer2Name.BackColor = System.Drawing.SystemColors.Control;
@@ -1960,6 +2141,7 @@ namespace WinApp
             // pnlPlayer1
             // 
             this.pnlPlayer1.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
+            this.pnlPlayer1.Controls.Add(this.tlpPlayer1Table);
             this.pnlPlayer1.Controls.Add(this.tlpPlayer1Hand);
             this.pnlPlayer1.Controls.Add(this.flpPlayer1Buttons);
             this.pnlPlayer1.Controls.Add(this.rtbPlayer1Name);
@@ -2016,6 +2198,7 @@ namespace WinApp
             this.rtbPlayer1Hand1.TabIndex = 0;
             this.rtbPlayer1Hand1.Text = "";
             this.rtbPlayer1Hand1.Click += new System.EventHandler(this.btnDiscard_Click);
+            this.rtbPlayer1Hand1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.rtbPlayerHand_MouseDown);
             // 
             // rtbPlayer1Hand2
             // 
@@ -2222,6 +2405,28 @@ namespace WinApp
             this.btnPlayer1Draw.Visible = false;
             this.btnPlayer1Draw.Click += new System.EventHandler(this.btnDraw_Click);
             // 
+            // btnPlayer1Buy
+            // 
+            this.btnPlayer1Buy.Location = new System.Drawing.Point(97, 32);
+            this.btnPlayer1Buy.Name = "btnPlayer1Buy";
+            this.btnPlayer1Buy.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayer1Buy.TabIndex = 3;
+            this.btnPlayer1Buy.Text = "Buy";
+            this.btnPlayer1Buy.UseVisualStyleBackColor = true;
+            this.btnPlayer1Buy.Visible = false;
+            this.btnPlayer1Buy.Click += new System.EventHandler(this.btnBuy_Click);
+            // 
+            // btnPlayer1AllowBuy
+            // 
+            this.btnPlayer1AllowBuy.Location = new System.Drawing.Point(16, 32);
+            this.btnPlayer1AllowBuy.Name = "btnPlayer1AllowBuy";
+            this.btnPlayer1AllowBuy.Size = new System.Drawing.Size(75, 23);
+            this.btnPlayer1AllowBuy.TabIndex = 4;
+            this.btnPlayer1AllowBuy.Text = "Allow Buy";
+            this.btnPlayer1AllowBuy.UseVisualStyleBackColor = true;
+            this.btnPlayer1AllowBuy.Visible = false;
+            this.btnPlayer1AllowBuy.Click += new System.EventHandler(this.btnAllowBuy_Click);
+            // 
             // rtbPlayer1Name
             // 
             this.rtbPlayer1Name.BackColor = System.Drawing.SystemColors.Control;
@@ -2296,145 +2501,393 @@ namespace WinApp
             this.btnClose.UseVisualStyleBackColor = true;
             this.btnClose.Click += new System.EventHandler(this.btnClose_Click);
             // 
-            // btnPlayer3Buy
+            // lblGameRound
             // 
-            this.btnPlayer3Buy.Location = new System.Drawing.Point(97, 32);
-            this.btnPlayer3Buy.Name = "btnPlayer3Buy";
-            this.btnPlayer3Buy.Size = new System.Drawing.Size(75, 23);
-            this.btnPlayer3Buy.TabIndex = 2;
-            this.btnPlayer3Buy.Text = "Buy";
-            this.btnPlayer3Buy.UseVisualStyleBackColor = true;
-            this.btnPlayer3Buy.Visible = false;
+            this.lblGameRound.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblGameRound.Location = new System.Drawing.Point(0, 0);
+            this.lblGameRound.Name = "lblGameRound";
+            this.lblGameRound.Size = new System.Drawing.Size(387, 21);
+            this.lblGameRound.TabIndex = 4;
+            this.lblGameRound.Text = "Game Round";
+            this.lblGameRound.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             // 
-            // btnPlayer3AllowBuy
+            // tlpPlayer1Table
             // 
-            this.btnPlayer3AllowBuy.Location = new System.Drawing.Point(16, 32);
-            this.btnPlayer3AllowBuy.Name = "btnPlayer3AllowBuy";
-            this.btnPlayer3AllowBuy.Size = new System.Drawing.Size(75, 23);
-            this.btnPlayer3AllowBuy.TabIndex = 3;
-            this.btnPlayer3AllowBuy.Text = "Allow Buy";
-            this.btnPlayer3AllowBuy.UseVisualStyleBackColor = true;
-            this.btnPlayer3AllowBuy.Visible = false;
+            this.tlpPlayer1Table.ColumnCount = 1;
+            this.tlpPlayer1Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpPlayer1Table.Controls.Add(this.rtbPlayer1Table1, 0, 0);
+            this.tlpPlayer1Table.Controls.Add(this.rtbPlayer1Table2, 0, 1);
+            this.tlpPlayer1Table.Controls.Add(this.rtbPlayer1Table3, 0, 2);
+            this.tlpPlayer1Table.Controls.Add(this.rtbPlayer1Table4, 0, 3);
+            this.tlpPlayer1Table.Location = new System.Drawing.Point(16, 68);
+            this.tlpPlayer1Table.Name = "tlpPlayer1Table";
+            this.tlpPlayer1Table.RowCount = 4;
+            this.tlpPlayer1Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer1Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer1Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer1Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer1Table.Size = new System.Drawing.Size(360, 123);
+            this.tlpPlayer1Table.TabIndex = 5;
             // 
-            // btnPlayer2Buy
+            // tlpPlayer2Table
             // 
-            this.btnPlayer2Buy.Location = new System.Drawing.Point(97, 32);
-            this.btnPlayer2Buy.Name = "btnPlayer2Buy";
-            this.btnPlayer2Buy.Size = new System.Drawing.Size(75, 23);
-            this.btnPlayer2Buy.TabIndex = 3;
-            this.btnPlayer2Buy.Text = "Buy";
-            this.btnPlayer2Buy.UseVisualStyleBackColor = true;
-            this.btnPlayer2Buy.Visible = false;
+            this.tlpPlayer2Table.ColumnCount = 1;
+            this.tlpPlayer2Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpPlayer2Table.Controls.Add(this.rtbPlayer2Table1, 0, 0);
+            this.tlpPlayer2Table.Controls.Add(this.rtbPlayer2Table2, 0, 1);
+            this.tlpPlayer2Table.Controls.Add(this.rtbPlayer2Table3, 0, 2);
+            this.tlpPlayer2Table.Controls.Add(this.rtbPlayer2Table4, 0, 3);
+            this.tlpPlayer2Table.Location = new System.Drawing.Point(13, 66);
+            this.tlpPlayer2Table.Name = "tlpPlayer2Table";
+            this.tlpPlayer2Table.RowCount = 4;
+            this.tlpPlayer2Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer2Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer2Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer2Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer2Table.Size = new System.Drawing.Size(360, 123);
+            this.tlpPlayer2Table.TabIndex = 6;
             // 
-            // btnPlayer2AllowBuy
+            // tlpPlayer3Table
             // 
-            this.btnPlayer2AllowBuy.Location = new System.Drawing.Point(16, 32);
-            this.btnPlayer2AllowBuy.Name = "btnPlayer2AllowBuy";
-            this.btnPlayer2AllowBuy.Size = new System.Drawing.Size(75, 23);
-            this.btnPlayer2AllowBuy.TabIndex = 4;
-            this.btnPlayer2AllowBuy.Text = "Allow Buy";
-            this.btnPlayer2AllowBuy.UseVisualStyleBackColor = true;
-            this.btnPlayer2AllowBuy.Visible = false;
+            this.tlpPlayer3Table.ColumnCount = 1;
+            this.tlpPlayer3Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpPlayer3Table.Controls.Add(this.rtbPlayer3Table1, 0, 0);
+            this.tlpPlayer3Table.Controls.Add(this.rtbPlayer3Table2, 0, 1);
+            this.tlpPlayer3Table.Controls.Add(this.rtbPlayer3Table3, 0, 2);
+            this.tlpPlayer3Table.Controls.Add(this.rtbPlayer3Table4, 0, 3);
+            this.tlpPlayer3Table.Location = new System.Drawing.Point(13, 66);
+            this.tlpPlayer3Table.Name = "tlpPlayer3Table";
+            this.tlpPlayer3Table.RowCount = 4;
+            this.tlpPlayer3Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer3Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer3Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer3Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer3Table.Size = new System.Drawing.Size(360, 123);
+            this.tlpPlayer3Table.TabIndex = 6;
             // 
-            // btnPlayer1Buy
+            // tlpPlayer4Table
             // 
-            this.btnPlayer1Buy.Location = new System.Drawing.Point(97, 32);
-            this.btnPlayer1Buy.Name = "btnPlayer1Buy";
-            this.btnPlayer1Buy.Size = new System.Drawing.Size(75, 23);
-            this.btnPlayer1Buy.TabIndex = 3;
-            this.btnPlayer1Buy.Text = "Buy";
-            this.btnPlayer1Buy.UseVisualStyleBackColor = true;
-            this.btnPlayer1Buy.Visible = false;
+            this.tlpPlayer4Table.ColumnCount = 1;
+            this.tlpPlayer4Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpPlayer4Table.Controls.Add(this.rtbPlayer4Table1, 0, 0);
+            this.tlpPlayer4Table.Controls.Add(this.rtbPlayer4Table2, 0, 1);
+            this.tlpPlayer4Table.Controls.Add(this.rtbPlayer4Table3, 0, 2);
+            this.tlpPlayer4Table.Controls.Add(this.rtbPlayer4Table4, 0, 3);
+            this.tlpPlayer4Table.Location = new System.Drawing.Point(13, 66);
+            this.tlpPlayer4Table.Name = "tlpPlayer4Table";
+            this.tlpPlayer4Table.RowCount = 4;
+            this.tlpPlayer4Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer4Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer4Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer4Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer4Table.Size = new System.Drawing.Size(360, 123);
+            this.tlpPlayer4Table.TabIndex = 6;
             // 
-            // btnPlayer1AllowBuy
+            // tlpPlayer5Table
             // 
-            this.btnPlayer1AllowBuy.Location = new System.Drawing.Point(16, 32);
-            this.btnPlayer1AllowBuy.Name = "btnPlayer1AllowBuy";
-            this.btnPlayer1AllowBuy.Size = new System.Drawing.Size(75, 23);
-            this.btnPlayer1AllowBuy.TabIndex = 4;
-            this.btnPlayer1AllowBuy.Text = "Allow Buy";
-            this.btnPlayer1AllowBuy.UseVisualStyleBackColor = true;
-            this.btnPlayer1AllowBuy.Visible = false;
+            this.tlpPlayer5Table.ColumnCount = 1;
+            this.tlpPlayer5Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpPlayer5Table.Controls.Add(this.rtbPlayer5Table1, 0, 0);
+            this.tlpPlayer5Table.Controls.Add(this.rtbPlayer5Table2, 0, 1);
+            this.tlpPlayer5Table.Controls.Add(this.rtbPlayer5Table3, 0, 2);
+            this.tlpPlayer5Table.Controls.Add(this.rtbPlayer5Table4, 0, 3);
+            this.tlpPlayer5Table.Location = new System.Drawing.Point(14, 66);
+            this.tlpPlayer5Table.Name = "tlpPlayer5Table";
+            this.tlpPlayer5Table.RowCount = 4;
+            this.tlpPlayer5Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer5Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer5Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer5Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer5Table.Size = new System.Drawing.Size(360, 123);
+            this.tlpPlayer5Table.TabIndex = 6;
             // 
-            // btnPlayer4Buy
+            // tlpPlayer6Table
             // 
-            this.btnPlayer4Buy.Location = new System.Drawing.Point(97, 32);
-            this.btnPlayer4Buy.Name = "btnPlayer4Buy";
-            this.btnPlayer4Buy.Size = new System.Drawing.Size(75, 23);
-            this.btnPlayer4Buy.TabIndex = 3;
-            this.btnPlayer4Buy.Text = "Buy";
-            this.btnPlayer4Buy.UseVisualStyleBackColor = true;
-            this.btnPlayer4Buy.Visible = false;
+            this.tlpPlayer6Table.ColumnCount = 1;
+            this.tlpPlayer6Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpPlayer6Table.Controls.Add(this.rtbPlayer6Table1, 0, 0);
+            this.tlpPlayer6Table.Controls.Add(this.rtbPlayer6Table2, 0, 1);
+            this.tlpPlayer6Table.Controls.Add(this.rtbPlayer6Table3, 0, 2);
+            this.tlpPlayer6Table.Controls.Add(this.rtbPlayer6Table4, 0, 3);
+            this.tlpPlayer6Table.Location = new System.Drawing.Point(14, 66);
+            this.tlpPlayer6Table.Name = "tlpPlayer6Table";
+            this.tlpPlayer6Table.RowCount = 4;
+            this.tlpPlayer6Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer6Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer6Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer6Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer6Table.Size = new System.Drawing.Size(360, 123);
+            this.tlpPlayer6Table.TabIndex = 6;
             // 
-            // btnPlayer4AllowBuy
+            // tlpPlayer7Table
             // 
-            this.btnPlayer4AllowBuy.Location = new System.Drawing.Point(16, 32);
-            this.btnPlayer4AllowBuy.Name = "btnPlayer4AllowBuy";
-            this.btnPlayer4AllowBuy.Size = new System.Drawing.Size(75, 23);
-            this.btnPlayer4AllowBuy.TabIndex = 4;
-            this.btnPlayer4AllowBuy.Text = "Allow Buy";
-            this.btnPlayer4AllowBuy.UseVisualStyleBackColor = true;
-            this.btnPlayer4AllowBuy.Visible = false;
+            this.tlpPlayer7Table.ColumnCount = 1;
+            this.tlpPlayer7Table.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tlpPlayer7Table.Controls.Add(this.rtbPlayer7Table1, 0, 0);
+            this.tlpPlayer7Table.Controls.Add(this.rtbPlayer7Table2, 0, 1);
+            this.tlpPlayer7Table.Controls.Add(this.rtbPlayer7Table3, 0, 2);
+            this.tlpPlayer7Table.Controls.Add(this.rtbPlayer7Table4, 0, 3);
+            this.tlpPlayer7Table.Location = new System.Drawing.Point(14, 67);
+            this.tlpPlayer7Table.Name = "tlpPlayer7Table";
+            this.tlpPlayer7Table.RowCount = 4;
+            this.tlpPlayer7Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer7Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer7Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer7Table.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 25F));
+            this.tlpPlayer7Table.Size = new System.Drawing.Size(360, 123);
+            this.tlpPlayer7Table.TabIndex = 6;
             // 
-            // btnPlayer5Buy
+            // rtbPlayer1Table1
             // 
-            this.btnPlayer5Buy.Location = new System.Drawing.Point(97, 32);
-            this.btnPlayer5Buy.Name = "btnPlayer5Buy";
-            this.btnPlayer5Buy.Size = new System.Drawing.Size(75, 23);
-            this.btnPlayer5Buy.TabIndex = 3;
-            this.btnPlayer5Buy.Text = "Buy";
-            this.btnPlayer5Buy.UseVisualStyleBackColor = true;
-            this.btnPlayer5Buy.Visible = false;
+            this.rtbPlayer1Table1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer1Table1.Location = new System.Drawing.Point(3, 3);
+            this.rtbPlayer1Table1.Name = "rtbPlayer1Table1";
+            this.rtbPlayer1Table1.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer1Table1.TabIndex = 0;
+            this.rtbPlayer1Table1.Text = "";
             // 
-            // btnPlayer5AllowBuy
+            // rtbPlayer1Table2
             // 
-            this.btnPlayer5AllowBuy.Location = new System.Drawing.Point(16, 32);
-            this.btnPlayer5AllowBuy.Name = "btnPlayer5AllowBuy";
-            this.btnPlayer5AllowBuy.Size = new System.Drawing.Size(75, 23);
-            this.btnPlayer5AllowBuy.TabIndex = 4;
-            this.btnPlayer5AllowBuy.Text = "Allow Buy";
-            this.btnPlayer5AllowBuy.UseVisualStyleBackColor = true;
-            this.btnPlayer5AllowBuy.Visible = false;
+            this.rtbPlayer1Table2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer1Table2.Location = new System.Drawing.Point(3, 33);
+            this.rtbPlayer1Table2.Name = "rtbPlayer1Table2";
+            this.rtbPlayer1Table2.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer1Table2.TabIndex = 1;
+            this.rtbPlayer1Table2.Text = "";
             // 
-            // btnPlayer6Buy
+            // rtbPlayer1Table3
             // 
-            this.btnPlayer6Buy.Location = new System.Drawing.Point(97, 32);
-            this.btnPlayer6Buy.Name = "btnPlayer6Buy";
-            this.btnPlayer6Buy.Size = new System.Drawing.Size(75, 23);
-            this.btnPlayer6Buy.TabIndex = 3;
-            this.btnPlayer6Buy.Text = "Buy";
-            this.btnPlayer6Buy.UseVisualStyleBackColor = true;
-            this.btnPlayer6Buy.Visible = false;
+            this.rtbPlayer1Table3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer1Table3.Location = new System.Drawing.Point(3, 63);
+            this.rtbPlayer1Table3.Name = "rtbPlayer1Table3";
+            this.rtbPlayer1Table3.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer1Table3.TabIndex = 2;
+            this.rtbPlayer1Table3.Text = "";
             // 
-            // btnPlayer6AllowBuy
+            // rtbPlayer1Table4
             // 
-            this.btnPlayer6AllowBuy.Location = new System.Drawing.Point(16, 32);
-            this.btnPlayer6AllowBuy.Name = "btnPlayer6AllowBuy";
-            this.btnPlayer6AllowBuy.Size = new System.Drawing.Size(75, 23);
-            this.btnPlayer6AllowBuy.TabIndex = 4;
-            this.btnPlayer6AllowBuy.Text = "Allow Buy";
-            this.btnPlayer6AllowBuy.UseVisualStyleBackColor = true;
-            this.btnPlayer6AllowBuy.Visible = false;
+            this.rtbPlayer1Table4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer1Table4.Location = new System.Drawing.Point(3, 93);
+            this.rtbPlayer1Table4.Name = "rtbPlayer1Table4";
+            this.rtbPlayer1Table4.Size = new System.Drawing.Size(354, 27);
+            this.rtbPlayer1Table4.TabIndex = 3;
+            this.rtbPlayer1Table4.Text = "";
             // 
-            // btnPlayer7Buy
+            // rtbPlayer2Table1
             // 
-            this.btnPlayer7Buy.Location = new System.Drawing.Point(97, 32);
-            this.btnPlayer7Buy.Name = "btnPlayer7Buy";
-            this.btnPlayer7Buy.Size = new System.Drawing.Size(75, 23);
-            this.btnPlayer7Buy.TabIndex = 3;
-            this.btnPlayer7Buy.Text = "Buy";
-            this.btnPlayer7Buy.UseVisualStyleBackColor = true;
-            this.btnPlayer7Buy.Visible = false;
+            this.rtbPlayer2Table1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer2Table1.Location = new System.Drawing.Point(3, 3);
+            this.rtbPlayer2Table1.Name = "rtbPlayer2Table1";
+            this.rtbPlayer2Table1.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer2Table1.TabIndex = 0;
+            this.rtbPlayer2Table1.Text = "";
             // 
-            // btnPlayer7AllowBuy
+            // rtbPlayer2Table2
             // 
-            this.btnPlayer7AllowBuy.Location = new System.Drawing.Point(16, 32);
-            this.btnPlayer7AllowBuy.Name = "btnPlayer7AllowBuy";
-            this.btnPlayer7AllowBuy.Size = new System.Drawing.Size(75, 23);
-            this.btnPlayer7AllowBuy.TabIndex = 4;
-            this.btnPlayer7AllowBuy.Text = "Allow Buy";
-            this.btnPlayer7AllowBuy.UseVisualStyleBackColor = true;
-            this.btnPlayer7AllowBuy.Visible = false;
+            this.rtbPlayer2Table2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer2Table2.Location = new System.Drawing.Point(3, 33);
+            this.rtbPlayer2Table2.Name = "rtbPlayer2Table2";
+            this.rtbPlayer2Table2.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer2Table2.TabIndex = 1;
+            this.rtbPlayer2Table2.Text = "";
+            // 
+            // rtbPlayer2Table3
+            // 
+            this.rtbPlayer2Table3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer2Table3.Location = new System.Drawing.Point(3, 63);
+            this.rtbPlayer2Table3.Name = "rtbPlayer2Table3";
+            this.rtbPlayer2Table3.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer2Table3.TabIndex = 2;
+            this.rtbPlayer2Table3.Text = "";
+            // 
+            // rtbPlayer2Table4
+            // 
+            this.rtbPlayer2Table4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer2Table4.Location = new System.Drawing.Point(3, 93);
+            this.rtbPlayer2Table4.Name = "rtbPlayer2Table4";
+            this.rtbPlayer2Table4.Size = new System.Drawing.Size(354, 27);
+            this.rtbPlayer2Table4.TabIndex = 3;
+            this.rtbPlayer2Table4.Text = "";
+            // 
+            // rtbPlayer3Table1
+            // 
+            this.rtbPlayer3Table1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer3Table1.Location = new System.Drawing.Point(3, 3);
+            this.rtbPlayer3Table1.Name = "rtbPlayer3Table1";
+            this.rtbPlayer3Table1.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer3Table1.TabIndex = 0;
+            this.rtbPlayer3Table1.Text = "";
+            // 
+            // rtbPlayer3Table2
+            // 
+            this.rtbPlayer3Table2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer3Table2.Location = new System.Drawing.Point(3, 33);
+            this.rtbPlayer3Table2.Name = "rtbPlayer3Table2";
+            this.rtbPlayer3Table2.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer3Table2.TabIndex = 1;
+            this.rtbPlayer3Table2.Text = "";
+            // 
+            // rtbPlayer3Table3
+            // 
+            this.rtbPlayer3Table3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer3Table3.Location = new System.Drawing.Point(3, 63);
+            this.rtbPlayer3Table3.Name = "rtbPlayer3Table3";
+            this.rtbPlayer3Table3.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer3Table3.TabIndex = 2;
+            this.rtbPlayer3Table3.Text = "";
+            // 
+            // rtbPlayer3Table4
+            // 
+            this.rtbPlayer3Table4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer3Table4.Location = new System.Drawing.Point(3, 93);
+            this.rtbPlayer3Table4.Name = "rtbPlayer3Table4";
+            this.rtbPlayer3Table4.Size = new System.Drawing.Size(354, 27);
+            this.rtbPlayer3Table4.TabIndex = 3;
+            this.rtbPlayer3Table4.Text = "";
+            // 
+            // rtbPlayer4Table1
+            // 
+            this.rtbPlayer4Table1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer4Table1.Location = new System.Drawing.Point(3, 3);
+            this.rtbPlayer4Table1.Name = "rtbPlayer4Table1";
+            this.rtbPlayer4Table1.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer4Table1.TabIndex = 0;
+            this.rtbPlayer4Table1.Text = "";
+            // 
+            // rtbPlayer4Table2
+            // 
+            this.rtbPlayer4Table2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer4Table2.Location = new System.Drawing.Point(3, 33);
+            this.rtbPlayer4Table2.Name = "rtbPlayer4Table2";
+            this.rtbPlayer4Table2.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer4Table2.TabIndex = 1;
+            this.rtbPlayer4Table2.Text = "";
+            // 
+            // rtbPlayer4Table3
+            // 
+            this.rtbPlayer4Table3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer4Table3.Location = new System.Drawing.Point(3, 63);
+            this.rtbPlayer4Table3.Name = "rtbPlayer4Table3";
+            this.rtbPlayer4Table3.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer4Table3.TabIndex = 2;
+            this.rtbPlayer4Table3.Text = "";
+            // 
+            // rtbPlayer4Table4
+            // 
+            this.rtbPlayer4Table4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer4Table4.Location = new System.Drawing.Point(3, 93);
+            this.rtbPlayer4Table4.Name = "rtbPlayer4Table4";
+            this.rtbPlayer4Table4.Size = new System.Drawing.Size(354, 27);
+            this.rtbPlayer4Table4.TabIndex = 3;
+            this.rtbPlayer4Table4.Text = "";
+            // 
+            // rtbPlayer5Table1
+            // 
+            this.rtbPlayer5Table1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer5Table1.Location = new System.Drawing.Point(3, 3);
+            this.rtbPlayer5Table1.Name = "rtbPlayer5Table1";
+            this.rtbPlayer5Table1.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer5Table1.TabIndex = 0;
+            this.rtbPlayer5Table1.Text = "";
+            // 
+            // rtbPlayer5Table2
+            // 
+            this.rtbPlayer5Table2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer5Table2.Location = new System.Drawing.Point(3, 33);
+            this.rtbPlayer5Table2.Name = "rtbPlayer5Table2";
+            this.rtbPlayer5Table2.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer5Table2.TabIndex = 1;
+            this.rtbPlayer5Table2.Text = "";
+            // 
+            // rtbPlayer5Table3
+            // 
+            this.rtbPlayer5Table3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer5Table3.Location = new System.Drawing.Point(3, 63);
+            this.rtbPlayer5Table3.Name = "rtbPlayer5Table3";
+            this.rtbPlayer5Table3.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer5Table3.TabIndex = 2;
+            this.rtbPlayer5Table3.Text = "";
+            // 
+            // rtbPlayer5Table4
+            // 
+            this.rtbPlayer5Table4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer5Table4.Location = new System.Drawing.Point(3, 93);
+            this.rtbPlayer5Table4.Name = "rtbPlayer5Table4";
+            this.rtbPlayer5Table4.Size = new System.Drawing.Size(354, 27);
+            this.rtbPlayer5Table4.TabIndex = 3;
+            this.rtbPlayer5Table4.Text = "";
+            // 
+            // rtbPlayer6Table1
+            // 
+            this.rtbPlayer6Table1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer6Table1.Location = new System.Drawing.Point(3, 3);
+            this.rtbPlayer6Table1.Name = "rtbPlayer6Table1";
+            this.rtbPlayer6Table1.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer6Table1.TabIndex = 0;
+            this.rtbPlayer6Table1.Text = "";
+            // 
+            // rtbPlayer6Table2
+            // 
+            this.rtbPlayer6Table2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer6Table2.Location = new System.Drawing.Point(3, 33);
+            this.rtbPlayer6Table2.Name = "rtbPlayer6Table2";
+            this.rtbPlayer6Table2.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer6Table2.TabIndex = 1;
+            this.rtbPlayer6Table2.Text = "";
+            // 
+            // rtbPlayer6Table3
+            // 
+            this.rtbPlayer6Table3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer6Table3.Location = new System.Drawing.Point(3, 63);
+            this.rtbPlayer6Table3.Name = "rtbPlayer6Table3";
+            this.rtbPlayer6Table3.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer6Table3.TabIndex = 2;
+            this.rtbPlayer6Table3.Text = "";
+            // 
+            // rtbPlayer6Table4
+            // 
+            this.rtbPlayer6Table4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer6Table4.Location = new System.Drawing.Point(3, 93);
+            this.rtbPlayer6Table4.Name = "rtbPlayer6Table4";
+            this.rtbPlayer6Table4.Size = new System.Drawing.Size(354, 27);
+            this.rtbPlayer6Table4.TabIndex = 3;
+            this.rtbPlayer6Table4.Text = "";
+            // 
+            // rtbPlayer7Table1
+            // 
+            this.rtbPlayer7Table1.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer7Table1.Location = new System.Drawing.Point(3, 3);
+            this.rtbPlayer7Table1.Name = "rtbPlayer7Table1";
+            this.rtbPlayer7Table1.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer7Table1.TabIndex = 0;
+            this.rtbPlayer7Table1.Text = "";
+            // 
+            // rtbPlayer7Table2
+            // 
+            this.rtbPlayer7Table2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer7Table2.Location = new System.Drawing.Point(3, 33);
+            this.rtbPlayer7Table2.Name = "rtbPlayer7Table2";
+            this.rtbPlayer7Table2.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer7Table2.TabIndex = 1;
+            this.rtbPlayer7Table2.Text = "";
+            // 
+            // rtbPlayer7Table3
+            // 
+            this.rtbPlayer7Table3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer7Table3.Location = new System.Drawing.Point(3, 63);
+            this.rtbPlayer7Table3.Name = "rtbPlayer7Table3";
+            this.rtbPlayer7Table3.Size = new System.Drawing.Size(354, 24);
+            this.rtbPlayer7Table3.TabIndex = 2;
+            this.rtbPlayer7Table3.Text = "";
+            // 
+            // rtbPlayer7Table4
+            // 
+            this.rtbPlayer7Table4.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.rtbPlayer7Table4.Location = new System.Drawing.Point(3, 93);
+            this.rtbPlayer7Table4.Name = "rtbPlayer7Table4";
+            this.rtbPlayer7Table4.Size = new System.Drawing.Size(354, 27);
+            this.rtbPlayer7Table4.TabIndex = 3;
+            this.rtbPlayer7Table4.Text = "";
             // 
             // GameTable
             // 
@@ -2476,6 +2929,13 @@ namespace WinApp
             this.flpPlayer1Buttons.PerformLayout();
             this.flowLayoutPanel1.ResumeLayout(false);
             this.flowLayoutPanel1.PerformLayout();
+            this.tlpPlayer1Table.ResumeLayout(false);
+            this.tlpPlayer2Table.ResumeLayout(false);
+            this.tlpPlayer3Table.ResumeLayout(false);
+            this.tlpPlayer4Table.ResumeLayout(false);
+            this.tlpPlayer5Table.ResumeLayout(false);
+            this.tlpPlayer6Table.ResumeLayout(false);
+            this.tlpPlayer7Table.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -2674,5 +3134,41 @@ namespace WinApp
         private System.Windows.Forms.Button btnPlayer2AllowBuy;
         private System.Windows.Forms.Button btnPlayer1Buy;
         private System.Windows.Forms.Button btnPlayer1AllowBuy;
+        private System.Windows.Forms.Label lblGameRound;
+        private System.Windows.Forms.TableLayoutPanel tlpPlayer7Table;
+        private System.Windows.Forms.RichTextBox rtbPlayer7Table1;
+        private System.Windows.Forms.RichTextBox rtbPlayer7Table2;
+        private System.Windows.Forms.RichTextBox rtbPlayer7Table3;
+        private System.Windows.Forms.RichTextBox rtbPlayer7Table4;
+        private System.Windows.Forms.TableLayoutPanel tlpPlayer6Table;
+        private System.Windows.Forms.RichTextBox rtbPlayer6Table1;
+        private System.Windows.Forms.RichTextBox rtbPlayer6Table2;
+        private System.Windows.Forms.RichTextBox rtbPlayer6Table3;
+        private System.Windows.Forms.RichTextBox rtbPlayer6Table4;
+        private System.Windows.Forms.TableLayoutPanel tlpPlayer5Table;
+        private System.Windows.Forms.RichTextBox rtbPlayer5Table1;
+        private System.Windows.Forms.RichTextBox rtbPlayer5Table2;
+        private System.Windows.Forms.RichTextBox rtbPlayer5Table3;
+        private System.Windows.Forms.RichTextBox rtbPlayer5Table4;
+        private System.Windows.Forms.TableLayoutPanel tlpPlayer4Table;
+        private System.Windows.Forms.RichTextBox rtbPlayer4Table1;
+        private System.Windows.Forms.RichTextBox rtbPlayer4Table2;
+        private System.Windows.Forms.RichTextBox rtbPlayer4Table3;
+        private System.Windows.Forms.RichTextBox rtbPlayer4Table4;
+        private System.Windows.Forms.TableLayoutPanel tlpPlayer3Table;
+        private System.Windows.Forms.RichTextBox rtbPlayer3Table1;
+        private System.Windows.Forms.RichTextBox rtbPlayer3Table2;
+        private System.Windows.Forms.RichTextBox rtbPlayer3Table3;
+        private System.Windows.Forms.RichTextBox rtbPlayer3Table4;
+        private System.Windows.Forms.TableLayoutPanel tlpPlayer2Table;
+        private System.Windows.Forms.RichTextBox rtbPlayer2Table1;
+        private System.Windows.Forms.RichTextBox rtbPlayer2Table2;
+        private System.Windows.Forms.RichTextBox rtbPlayer2Table3;
+        private System.Windows.Forms.RichTextBox rtbPlayer2Table4;
+        private System.Windows.Forms.TableLayoutPanel tlpPlayer1Table;
+        private System.Windows.Forms.RichTextBox rtbPlayer1Table1;
+        private System.Windows.Forms.RichTextBox rtbPlayer1Table2;
+        private System.Windows.Forms.RichTextBox rtbPlayer1Table3;
+        private System.Windows.Forms.RichTextBox rtbPlayer1Table4;
     }
 }

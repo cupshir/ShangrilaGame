@@ -12,8 +12,11 @@ namespace GameCore
         public int Score { get; set; }
         public bool CurrentTurn { get; set; }
         public bool IsDealer { get; set; }
+        public bool IsBuyer { get; set; }
+        public bool IsWinner { get; set; }
         public int SeatNumber { get; set; }
         public List<Card> Hand { get; set; }
+        public List<List<Card>> TableHands { get; set; }
 
         public static Player CreatePlayer( string name, int seatNumber )
         {
@@ -23,12 +26,33 @@ namespace GameCore
                 Score = 0,
                 CurrentTurn = false,
                 IsDealer = false,
+                IsBuyer = false,
+                IsWinner = false,
                 SeatNumber = 0,
-                Hand = new List<Card>()
+                Hand = new List<Card>(),
+                TableHands = new List<List<Card>>()
             };
 
-            return newPlayer;
+            for ( int i = 0; i < 4; i++ )
+            {
+                newPlayer.TableHands.Add( new List<Card>());
+            }
 
+            return newPlayer;
+        }
+
+        // Set all IsBuyer for all players to false
+        public static Game ResetIsBuyer(Game game )
+        {
+            // Loop through all players
+            for ( int i = 0; i < game.Players.Count; i++ )
+            {
+                // Set IsBuyer to false
+                game.Players[i].IsBuyer = false;
+            }
+            
+            // Return game
+            return game;
         }
 
         // Remove when done testing, only used for testing

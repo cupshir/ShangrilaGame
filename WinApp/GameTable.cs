@@ -29,9 +29,11 @@ namespace WinApp
             DrawGameTable();
         }
 
-        // Draw Game Table without drawing Hands
+        // Draw Game Table
         private void DrawGameTable()
         {
+            drawGameTitle();
+
             // Draw Deck
             printCards( _game.GameDeck, rtbDeck );
 
@@ -39,14 +41,44 @@ namespace WinApp
             printCards( _game.DiscardPile, rtbDiscardPile );
 
             // Draw Player Names
-            DrawPlayerNames();
+            drawPlayerNames();
 
             // Draw player hand
-            DrawPlayerHands();
+            drawPlayerHands();
+
+            // Draw player table hands
+            drawPlayerTableHands();
+        }
+
+        private void drawPlayerTableHands()
+        {
+            // loop through all players
+            for ( int i = 0; i < _game.Players.Count; i++ )
+            {
+                // loop through all table hands (where players lay cards)
+                for ( int j = 0; j < 4; j++ )
+                {
+                    // check if table hand has cards
+                    if ( _game.Players[i].TableHands[0].Count > 0 )
+                    {
+                        // build name of table hand text control. add 1 to each index to get correct player / table hand
+                        string tableHand = "rtbPlayer" + (i + 1) + "Table" + (j +1);
+
+                        // find table control
+                        RichTextBox rtbTableHand = ( RichTextBox ) this.Controls.Find( tableHand, true ).FirstOrDefault();
+
+                        // center text
+                        rtbTableHand.SelectionAlignment = HorizontalAlignment.Center;
+
+                        // print hand to box
+                        printCards( _game.Players[i].TableHands[j], rtbTableHand );
+                    }
+                }
+            }
         }
 
         // Draw player hands
-        private void DrawPlayerHands()
+        private void drawPlayerHands()
         {
             // Loop through all players
             for ( int i = 0; i < _game.Players.Count ; i++ )
@@ -79,9 +111,18 @@ namespace WinApp
                         {
                             rtbPlayerHand.SelectionColor = Color.Black;
                         }
-                        
+
+                        // center text
+                        rtbPlayerHand.SelectionAlignment = HorizontalAlignment.Center;
+
+                        // testing allow drop
+                        //rtbPlayerHand.AllowDrop = true;
+                        //rtbPlayerHand.DragEnter += RtbPlayerHand_DragEnter;
+                        //rtbPlayerHand.DragDrop += RtbPlayerHand_DragDrop;
+                                                
                         // card info to display
                         string displayText = _game.Players[i].Hand[j].ShortName;
+
                         // add text to control
                         rtbPlayerHand.AppendText( displayText );
                     }
@@ -89,8 +130,37 @@ namespace WinApp
             }
         }
 
+        // Testing Drag and Drop with the text boxes
+        //private void rtbPlayerHand_MouseDown( object sender, MouseEventArgs e )
+        //{
+        //    RichTextBox rtbControl = ( RichTextBox ) sender;
+
+        //    rtbControl.DoDragDrop( rtbControl.Text, DragDropEffects.Move );
+
+        //}
+
+        //private void RtbPlayerHand_DragDrop( object sender, DragEventArgs e )
+        //{
+        //    RichTextBox rtbControl = ( RichTextBox ) sender;
+
+        //    rtbControl.Text = e.Data.GetData( DataFormats.Text ).ToString();
+
+        //}
+
+        //private void RtbPlayerHand_DragEnter( object sender, DragEventArgs e )
+        //{
+        //    if ( e.Data.GetDataPresent( DataFormats.Text ) )
+        //    {
+        //        e.Effect = DragDropEffects.Move;
+        //    }
+        //    else
+        //    {
+        //        e.Effect = DragDropEffects.None;
+        //    }
+        //}
+
         // Draw player names
-        private void DrawPlayerNames()
+        private void drawPlayerNames()
         {
             // Loop through players
             for ( int i = 0; i < _game.Players.Count; i++ )
@@ -112,11 +182,65 @@ namespace WinApp
                     rtbPlayerName.BackColor = Color.SlateBlue;
                 }
                 
-                // Change background color of current turn and show draw button
+                // Change background color of current turn
                 if( _game.Players[i].CurrentTurn == true )
                 {
                     rtbPlayerName.BackColor = Color.Aquamarine;
                 }
+
+                // Change background color of buyer to green
+                if ( _game.Players[i].IsBuyer == true )
+                {
+                    rtbPlayerName.BackColor = Color.Green;
+                }
+            }
+        }
+
+
+        private void drawGameTitle()
+        {
+            switch ( _game.Round )
+            {
+                case Rounds.NotStarted:
+                    lblGameRound.Text = "Game Not Yet Started";
+                    break;
+                case Rounds.TwoSetsOneRun:
+                    lblGameRound.Text = "Two Sets One Run";
+                    break;
+                case Rounds.TwoRunsOneSet:
+                    lblGameRound.Text = "Two Runs One Set";
+                    break;
+                case Rounds.ThreeSets:
+                    lblGameRound.Text = "Three Sets";
+                    break;
+                case Rounds.ThreeRuns:
+                    lblGameRound.Text = "Three Runs";
+                    break;
+                case Rounds.ThreeSetsOneRun:
+                    lblGameRound.Text = "Three Sets One Run";
+                    break;
+                case Rounds.TwoSetsTwoRuns:
+                    lblGameRound.Text = "Two Sets Two Runs";
+                    break;
+                case Rounds.FourSets:
+                    lblGameRound.Text = "Four Sets";
+                    break;
+                case Rounds.Ended:
+                    {
+                        Player winner = _game.Players.Where( x => x.IsWinner == true ).FirstOrDefault();
+                        if( winner != null )
+                        {
+                            lblGameRound.Text = String.Format("Game Ended: {0} is Winner!", winner.Name);
+                        }
+                        else
+                        {
+                            lblGameRound.Text = "Game Ended: Missing Winner Error";
+                        }
+                        break;
+                    }
+                default:
+                    lblGameRound.Text = "Error getting game round";
+                    break;
             }
         }
 
@@ -156,6 +280,42 @@ namespace WinApp
             }
         }
 
+        // print deck cards to RichTextBox control
+        private void printCards( List<Card> hand, RichTextBox richTextBox )
+        {
+            // Clear textbox
+            richTextBox.Clear();
+            string displayText = "";
+
+            // check for cards in deck
+            if ( hand.Count > 0 )
+            {
+                // loop through each card
+                foreach ( Card card in hand )
+                {
+                    // Set text color to red for Hearts / Diamonds suit and black for Spades / Clubs suit
+                    if ( card.Suit == "Hearts" || card.Suit == "Diamonds" )
+                    {
+                        richTextBox.SelectionColor = Color.Red;
+                    }
+                    else
+                    {
+                        richTextBox.SelectionColor = Color.Black;
+                    }
+
+                    // Create short card name and append to control
+                    displayText = card.ShortName + " ";
+                    richTextBox.AppendText( displayText );
+                }
+            }
+            else
+            {
+                // display if no cards
+                displayText = "No cards to display";
+                richTextBox.AppendText( displayText );
+            }
+        }
+
         private void btnDeal_Click( object sender, EventArgs e )
         {
             // Check for a dealer
@@ -175,7 +335,7 @@ namespace WinApp
                 int currentPlayerIndex = dealer.SeatNumber - 1;
 
                 // Make next player current turn
-                ChangeTurn( currentPlayerIndex );
+                changeTurn( currentPlayerIndex );
             }
 
             // Deal
@@ -230,13 +390,13 @@ namespace WinApp
             Button control = ( Button )sender;
 
             // get playernumber from button
-            int playerNumber = Convert.ToInt32(ExtractNumber( control.Name.ToString() ));
+            int playerNumber = Convert.ToInt32(extractNumber( control.Name.ToString() ));
 
             // draw card
             _game = GameManagement.DrawCard( _game, playerNumber );
 
             // hide draw buttons
-            HideDrawButtons( playerNumber );
+            hideDrawButtons( playerNumber );
 
             // Redraw table
             DrawGameTable();
@@ -251,13 +411,19 @@ namespace WinApp
                 Button control = ( Button ) sender;
 
                 // get playernumber from button
-                int playerNumber = Convert.ToInt32( ExtractNumber( control.Name.ToString() ) );
+                int playerNumber = Convert.ToInt32( extractNumber( control.Name.ToString() ) );
 
                 // draw from discard pile
                 _game = GameManagement.DrawDiscardCard( _game, playerNumber );
 
                 // hide draw buttons
-                HideDrawButtons( playerNumber );
+                hideDrawButtons( playerNumber );
+
+                // hide AllowBuy button
+                hideButton( "AllowBuy", playerNumber );
+
+                // reset IsBuyer incase someone clicked buy, but didnt get the card
+                _game = Player.ResetIsBuyer( _game );
 
                 // Redraw Table
                 DrawGameTable();
@@ -270,7 +436,7 @@ namespace WinApp
             RichTextBox rtbCard = ( RichTextBox ) sender;
             
             // get playerIndex for array from control name
-            int playerIndex = (Convert.ToInt32( ExtractNumberHand( rtbCard.Name.ToString() ) ) -1);
+            int playerIndex = (Convert.ToInt32( extractNumberHand( rtbCard.Name.ToString() ) ) -1);
 
             // check that it is the current players turn 
             // that the card text box wasnt empty 
@@ -287,7 +453,7 @@ namespace WinApp
                 }
 
                 // Change current turn to next player
-                ChangeTurn( playerIndex );
+                changeTurn( playerIndex );
 
                 // Redraw Table
                 DrawGameTable();
@@ -298,7 +464,86 @@ namespace WinApp
             }
         }
 
-        private void ChangeTurn(int currentPlayerIndex )
+        private void btnBuy_Click( object sender, EventArgs e )
+        {
+            // Get button that clicked
+            Button button = ( Button ) sender;
+
+            // get playerIndex for array from control name ( index is 1 less than player number)
+            int playerIndex = ( Convert.ToInt32( extractNumber( button.Name.ToString() ) ) - 1 );
+
+            // Check if someone else has already clicked buy
+            List<Player> currentBuyer = _game.Players.Where( x => x.IsBuyer == true ).ToList();
+
+            // If there is already currentBuyer, return
+            if ( currentBuyer.Count == 0 )
+            {
+                // Set IsBuyer for player that clicked buy
+                _game.Players[playerIndex].IsBuyer = true;
+
+                // Get the current turn player
+                Player currentTurnPlayer = _game.Players.Where( x => x.CurrentTurn == true ).FirstOrDefault();
+
+                // Hide draw and show the allow buy button of the current player
+                if ( currentTurnPlayer != null )
+                {
+                    // hide draw button
+                    hideButton( "Draw", currentTurnPlayer.SeatNumber );
+                    // show allow buy button
+                    showButton( "AllowBuy", currentTurnPlayer.SeatNumber );
+                }
+            }
+            else
+            {
+                return;
+            }
+
+            // Redraw game table
+            DrawGameTable();
+        }
+
+        private void btnAllowBuy_Click( object sender, EventArgs e )
+        {
+            // Get button that clicked
+            Button button = ( Button ) sender;
+
+            // get playerIndex for array from button name ( index is 1 less than player number)
+            int currentPlayer = Convert.ToInt32( extractNumber( button.Name.ToString() ) );
+
+            // get Buyer
+            Player buyer = _game.Players.Where( x => x.IsBuyer == true ).FirstOrDefault();
+
+            if ( buyer != null )
+            {
+                // Buyer buys card
+                _game = GameManagement.BuyCard( _game, (buyer.SeatNumber -1) );
+
+                // Hide Allow Buy button
+                hideButton( "AllowBuy", currentPlayer );
+
+                // Show Draw button
+                showButton( "Draw", currentPlayer );
+
+                // reset isBuyer
+                _game = Player.ResetIsBuyer( _game );
+            }
+            else
+            {
+                // no buyer, error
+                return;
+            }
+
+            // discard given to buyer so hide draw discard button
+            hideButton( "DrawDiscard", currentPlayer );
+
+            // redraw buy buttons to hide if persons is out of buys
+            drawBuyButtons();
+
+            // Redraw table
+            DrawGameTable();
+        }
+
+        private void changeTurn(int currentPlayerIndex )
         {
             int nextPlayerIndex = (currentPlayerIndex +1) % _game.Players.Count;
 
@@ -308,7 +553,7 @@ namespace WinApp
             _game.Players[nextPlayerIndex].CurrentTurn = true;
 
             // Draw draw buttons for next player (remember player index is 1 less then player number)
-            DrawDrawButtons( nextPlayerIndex + 1 );
+            drawDrawButtons( nextPlayerIndex + 1 );
 
             // Double check only 1 current player was set
             List<Player> currentPlayers = _game.Players.Where( a => a.CurrentTurn == true ).ToList();
@@ -320,98 +565,102 @@ namespace WinApp
             }
 
             // Draw buy buttons
-            DrawBuyButtons();
+            drawBuyButtons();
         }
 
-        private void DrawDrawButtons(int player)
+        private void drawDrawButtons(int player)
         {
-            // show controls for player
-            // build control name for player, ie btnPlayer2Draw.
-            string buttonName = "btnPlayer" + ( player ) + "Draw";
-            // Find the control
-            Button btnPlayerDraw = ( Button ) this.Controls.Find( buttonName, true ).FirstOrDefault();
-            // Show Draw button
-            btnPlayerDraw.Visible = true;
+            // Show draw button
+            showButton( "Draw", player );
 
             // if cards in discard pile show draw discard button
             if ( _game.DiscardPile.Cards.Count > 0 )
             {
-                // build control name for next player, ie btnPlayer2DrawDiscard
-                buttonName = "btnPlayer" + ( player ) + "DrawDiscard";
-                // Find the control
-                Button btnPlayerDrawDiscard = ( Button ) this.Controls.Find( buttonName, true ).FirstOrDefault();
                 // Show Draw Dicard button
-                btnPlayerDrawDiscard.Visible = true;
+                showButton( "DrawDiscard", player );
             }
         }
 
-        private void DrawBuyButtons()
+        private void drawBuyButtons()
         {   
             // Show Buy Buttons for all players but the current turn player
             foreach ( Player player in _game.Players )
             {
-                // build control name for Buy button, ie btnPlayer2Buy
-                string buttonName = "btnPlayer" + ( player.SeatNumber ) + "Buy";
-                // Find the control
-                Button btnPlayerBuy = ( Button ) this.Controls.Find( buttonName, true ).FirstOrDefault();
-
-                if ( player.CurrentTurn == false )
+                // If player has 17 cards, hide the buy button
+                if ( player.Hand.Count != 17 )
                 {
-                    // Show Buy button
-                    btnPlayerBuy.Visible = true;
+                    if ( player.CurrentTurn == false )
+                    {
+                        // show Buy button
+                        showButton( "Buy", player.SeatNumber );
+                    }
+                    else
+                    {
+                        // hide Buy button
+                        hideButton( "Buy", player.SeatNumber );
+                    }
                 }
                 else
                 {
-                    // hide Buy button
-                    btnPlayerBuy.Visible = false;
+                    hideButton( "Buy", player.SeatNumber );
                 }
             }
         }
 
-        private void HideBuyButtons()
+        private void hideButton( string buttonType, int playerNumber )
+        {
+            // build button name
+            string buttonName = "btnPlayer" + playerNumber.ToString() + buttonType;
+
+            // find button control
+            Button button = ( Button ) this.Controls.Find( buttonName, true ).FirstOrDefault();
+
+            // hide button
+            button.Visible = false;
+        }
+
+        private void showButton( string buttonType, int playerNumber )
+        {
+            // build button name
+            string buttonName = "btnPlayer" + playerNumber.ToString() + buttonType;
+
+            // find button control
+            Button button = ( Button ) this.Controls.Find( buttonName, true ).FirstOrDefault();
+
+            // show button
+            button.Visible = true;
+        }
+
+        private void hideBuyButtons()
         {
             // Hide Buy Buttons for all players
             foreach ( Player player in _game.Players )
             {
-                // build control name for Buy button, ie btnPlayer2Buy
-                string buttonName = "btnPlayer" + ( player.SeatNumber ) + "Buy";
-                // Find the control
-                Button btnPlayerBuy = ( Button ) this.Controls.Find( buttonName, true ).FirstOrDefault();
-
-               // hide buy button
-                btnPlayerBuy.Visible = false;                
+                hideButton( "Buy", player.SeatNumber );
             }
         }
 
-        private void HideDrawButtons(int playerNumber )
+        private void hideDrawButtons(int playerNumber )
         {
-            // draw button name
-            string drawName = "btnPlayer" + playerNumber + "Draw";
-            // find draw control
-            Button drawButton = ( Button ) this.Controls.Find( drawName, true ).FirstOrDefault();
-            // hide draw button
-            drawButton.Visible = false;
-
-            // draw discard button name
-            string discardName = "btnPlayer" + playerNumber + "DrawDiscard";
-            // find draw discard control
-            Button drawDiscardButton = ( Button ) this.Controls.Find( discardName, true ).FirstOrDefault();
-            // hide draw discard button
-            drawDiscardButton.Visible = false;
+            // Hide draw buttons
+            hideButton( "Draw", playerNumber );
+            hideButton( "DrawDiscard", playerNumber );
         }
 
         // Get number from string and return only number
-        private string ExtractNumber( string original )
+        private string extractNumber( string original )
         {
             return new string( original.Where( c => Char.IsDigit( c ) ).ToArray() );
         }
 
         // Get number from hand control (control has multiple numbers, we need the number before Hand
-        private string ExtractNumberHand( string original )
+        private string extractNumberHand( string original )
         {
             string[] number = original.Split( 'H' );
 
             return new string( number[0].Where( c => Char.IsDigit( c ) ).ToArray() );
         }
+
+
     }
 }

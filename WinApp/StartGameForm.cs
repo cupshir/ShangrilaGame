@@ -62,6 +62,16 @@ namespace WinApp
             // Create a game with players and 3 decks
             Game game = GameManagement.CreateGame( players, 3 );
 
+            // TEST REMOVE - Add table hand cards
+            //for ( int i = 0; i < game.Players.Count; i++ )
+            //{
+            //    for ( int j = 0; j < 4; j++ )
+            //    {
+            //        game.Players[i].TableHands[j].Add( new Card { ShortName = "2H", Suit = "Hearts" } );
+            //        game.Players[i].TableHands[j].Add( new Card { ShortName = "JS", Suit = "Spades" } );
+            //    }
+            //}
+
             // Create new GameTable form
             Form gameTable = new GameTable( game );
 

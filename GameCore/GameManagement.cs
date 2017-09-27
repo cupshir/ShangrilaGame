@@ -14,7 +14,8 @@ namespace GameCore
             {
                 Players = players,
                 GameDeck = Deck.BuildDecks( numberOfDecks ),
-                DiscardPile = new Deck() { Cards = new List<Card>() }
+                DiscardPile = new Deck() { Cards = new List<Card>() },
+                Round = Rounds.NotStarted
             };
 
             return newGame;
@@ -113,6 +114,9 @@ namespace GameCore
                 // Copy player hands back into game object
                 game.Players.Find( x => x.SeatNumber == player.SeatNumber ).Hand = player.Hand;
             }
+
+            // Set game round to first hand
+            game.Round = Rounds.TwoSetsOneRun;
             
             // return the updated game
             return game;
@@ -149,6 +153,30 @@ namespace GameCore
             // remove card from discard pile
             game.DiscardPile.Cards.Remove( card );
 
+            return game;
+        }
+
+        public static Game BuyCard(Game game, int buyerIndex )
+        {
+            // Get last discarded card
+            Card boughtCard = game.DiscardPile.Cards[( game.DiscardPile.Cards.Count - 1 )];
+
+            // add to player hand
+            game.Players[buyerIndex].Hand.Add( boughtCard );
+
+            // remove from discard pile
+            game.DiscardPile.Cards.Remove( boughtCard );
+
+            // Get top card
+            Card extraCard = game.GameDeck.Cards[0];
+
+            // add to player hand
+            game.Players[buyerIndex].Hand.Add( extraCard );
+
+            // remove from game deck
+            game.GameDeck.Cards.Remove( extraCard );
+
+            //return game
             return game;
         }
 
