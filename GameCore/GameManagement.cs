@@ -195,18 +195,17 @@ namespace GameCore
 
         public static Game MoveCardInHand(Game game, int player, int card1, int card2 )
         {
-            
-            // get first card
-            Card firstCard = game.Players[(player -1)].Hand[(card1 - 1)];
+            // player index (1 less then player number)
+            int playerIndex = player - 1;
 
-            // get second card
-            Card secondCard = game.Players[( player - 1 )].Hand[(card2 - 1)];
+            // Get Card to move
+            Card moveCard = game.Players[playerIndex].Hand[( card1 - 1 )];
 
-            // replace first card with second card
-            game.Players[( player - 1 )].Hand[( card1 - 1)] = secondCard;
+            // remove card from player hand
+            game.Players[playerIndex].Hand.Remove( moveCard );
 
-            // replace second card with first card
-            game.Players[( player - 1 )].Hand[( card2 - 1 )] = firstCard;
+            // insert card back into hand at old card index
+            game.Players[playerIndex].Hand.Insert( (card2 -1), moveCard );
 
             return game;
         }
