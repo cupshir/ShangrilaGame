@@ -17,14 +17,14 @@ namespace GameCore
 
     public enum Rounds
     {
-        NotStarted = 0,
-        TwoSetsOneRun = 1,
-        TwoRunsOneSet = 2,
-        ThreeSets = 3,
-        ThreeRuns = 4,
-        ThreeSetsOneRun = 5,
-        TwoSetsTwoRuns = 6,
-        FourSets = 7,
-        Ended = 8
+        NotStarted,
+        TwoSetsOneRun,
+        TwoRunsOneSet,
+        ThreeSets,
+        ThreeRuns,
+        ThreeSetsOneRun,
+        TwoSetsTwoRuns,
+        FourSets,
+        Ended
     }
 }

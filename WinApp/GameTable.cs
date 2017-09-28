@@ -13,8 +13,13 @@ namespace WinApp
 {
     public partial class GameTable : Form
     {
-        static Game _game = new Game();
+        // game object
+        private static Game _game = new Game();
         
+        // for drag drop
+        private Size dragSize = SystemInformation.DragSize;
+        private Rectangle dragBounds = Rectangle.Empty;
+
         public GameTable()
         {
         }
@@ -39,6 +44,9 @@ namespace WinApp
 
             // Draw discard pile
             printCards( _game.DiscardPile, rtbDiscardPile );
+
+            // draw player scores
+            printPlayerScores( _game );
 
             // Draw Player Names
             drawPlayerNames();
@@ -115,11 +123,36 @@ namespace WinApp
                         // center text
                         rtbPlayerHand.SelectionAlignment = HorizontalAlignment.Center;
 
-                        // testing allow drop
-                        //rtbPlayerHand.AllowDrop = true;
-                        //rtbPlayerHand.DragEnter += RtbPlayerHand_DragEnter;
-                        //rtbPlayerHand.DragDrop += RtbPlayerHand_DragDrop;
-                                                
+                        // add events if current turn (remove event and add each round to fix timing issue)
+                        if ( _game.Players[i].CurrentTurn == true )
+                        {
+                            // add discard click event
+                            rtbPlayerHand.Click -= btnDiscard_Click;
+                            rtbPlayerHand.Click += btnDiscard_Click;
+
+                            // add drag drop events
+                            rtbPlayerHand.MouseDown -= rtbPlayerHand_MouseDown;
+                            rtbPlayerHand.MouseMove -= rtbPlayerHand_MouseMove;
+                            rtbPlayerHand.DragEnter -= rtbPlayerHand_DragEnter;
+                            rtbPlayerHand.DragDrop -= rtbPlayerHand_DragDrop;
+
+                            rtbPlayerHand.MouseDown += rtbPlayerHand_MouseDown;
+                            rtbPlayerHand.MouseMove += rtbPlayerHand_MouseMove;
+                            rtbPlayerHand.AllowDrop = true;
+                            rtbPlayerHand.DragEnter += rtbPlayerHand_DragEnter;
+                            rtbPlayerHand.DragDrop += rtbPlayerHand_DragDrop;
+                        }
+                        else
+                        {
+                            // remove events from textbox
+                            rtbPlayerHand.Click -= btnDiscard_Click;
+                            rtbPlayerHand.MouseDown -= rtbPlayerHand_MouseDown;
+                            rtbPlayerHand.MouseMove -= rtbPlayerHand_MouseMove;
+                            rtbPlayerHand.AllowDrop = false;
+                            rtbPlayerHand.DragEnter -= rtbPlayerHand_DragEnter;
+                            rtbPlayerHand.DragDrop -= rtbPlayerHand_DragDrop;
+                        }
+
                         // card info to display
                         string displayText = _game.Players[i].Hand[j].ShortName;
 
@@ -130,34 +163,78 @@ namespace WinApp
             }
         }
 
-        // Testing Drag and Drop with the text boxes
-        //private void rtbPlayerHand_MouseDown( object sender, MouseEventArgs e )
-        //{
-        //    RichTextBox rtbControl = ( RichTextBox ) sender;
+        private void rtbPlayerHand_MouseDown( object sender, MouseEventArgs e )
+        {
+            if ( e.Button == MouseButtons.Left )
+            {
+                // left mouse button was clicked, set rectangle location where mouse was clicked
+                dragBounds = new Rectangle(new Point(e.X - dragSize.Width / 2, e.Y - dragSize.Height / 2), dragSize);
+            }
+            else
+            {
+                // button was clicked, clear dragBounds
+                dragBounds = Rectangle.Empty;
+            }
+        }
 
-        //    rtbControl.DoDragDrop( rtbControl.Text, DragDropEffects.Move );
+        private void rtbPlayerHand_MouseMove( object sender, MouseEventArgs e )
+        {
+            // check if left mouse button was clicked and was moved
+            if ( e.Button == MouseButtons.Left && dragBounds != Rectangle.Empty && !dragBounds.Contains(e.X, e.Y ))
+            {
+                // set sender control
+                RichTextBox rtbControl = ( RichTextBox ) sender;
 
-        //}
+                // start drag drop event passing control name
+                rtbControl.DoDragDrop( rtbControl.Name, DragDropEffects.Move );
+                
+                // clear dragBounds
+                dragBounds = Rectangle.Empty;
+            }
+        }
 
-        //private void RtbPlayerHand_DragDrop( object sender, DragEventArgs e )
-        //{
-        //    RichTextBox rtbControl = ( RichTextBox ) sender;
+        private void rtbPlayerHand_DragDrop( object sender, DragEventArgs e )
+        {
+            // set sender control
+            RichTextBox rtbControl = ( RichTextBox ) sender;
 
-        //    rtbControl.Text = e.Data.GetData( DataFormats.Text ).ToString();
+            // get player of new card and old card
+            int newCardPlayer = Convert.ToInt32(extractPlayerNumberHand(e.Data.GetData(DataFormats.Text).ToString()));
+            int oldCardPlayer = Convert.ToInt32(extractPlayerNumberHand( rtbControl.Name ));
 
-        //}
+            // check that player index is the same
+            if ( newCardPlayer == oldCardPlayer )
+            {
+                // get card number of new and old card
+                int newCard = Convert.ToInt32( extractHandNumberHand( e.Data.GetData( DataFormats.Text ).ToString() ));
+                int oldCard = Convert.ToInt32( extractHandNumberHand( rtbControl.Name ) );
 
-        //private void RtbPlayerHand_DragEnter( object sender, DragEventArgs e )
-        //{
-        //    if ( e.Data.GetDataPresent( DataFormats.Text ) )
-        //    {
-        //        e.Effect = DragDropEffects.Move;
-        //    }
-        //    else
-        //    {
-        //        e.Effect = DragDropEffects.None;
-        //    }
-        //}
+                // check that the card numbers are different
+                if ( newCard != oldCard )
+                {
+                    // move the cards in the players hand
+                    _game = GameManagement.MoveCardInHand( _game, newCardPlayer, newCard, oldCard );
+                }            
+            }
+
+            // Redraw game table
+            DrawGameTable();
+        }
+
+        private void rtbPlayerHand_DragEnter( object sender, DragEventArgs e )
+        {
+            // test if the control accepts the format being dragged
+            if ( e.Data.GetDataPresent( DataFormats.Text ) )
+            {
+                // if so, show move effect
+                e.Effect = DragDropEffects.Move;
+            }
+            else
+            {
+                // if not, show no effect
+                e.Effect = DragDropEffects.None;
+            }
+        }
 
         // Draw player names
         private void drawPlayerNames()
@@ -173,8 +250,8 @@ namespace WinApp
                 // Reset background color to default
                 rtbPlayerName.BackColor = SystemColors.Control;
                 
-                // Update text with player name
-                rtbPlayerName.Text = _game.Players[i].Name;
+                // Update text with player name (for testing include card count
+                rtbPlayerName.Text = String.Format("{0} ({1})", _game.Players[i].Name, _game.Players[i].Hand.Count);
                 
                 // Change background color of dealer
                 if ( _game.Players[i].IsDealer == true )
@@ -196,34 +273,36 @@ namespace WinApp
             }
         }
 
-
+        // guessing this doesnt need comments...
         private void drawGameTitle()
         {
+            string gameTitle = "";
+
             switch ( _game.Round )
             {
                 case Rounds.NotStarted:
-                    lblGameRound.Text = "Game Not Yet Started";
+                     gameTitle = "Game Not Yet Started";
                     break;
                 case Rounds.TwoSetsOneRun:
-                    lblGameRound.Text = "Two Sets One Run";
+                    gameTitle = "Two Sets One Run";
                     break;
                 case Rounds.TwoRunsOneSet:
-                    lblGameRound.Text = "Two Runs One Set";
+                    gameTitle = "Two Runs One Set";
                     break;
                 case Rounds.ThreeSets:
-                    lblGameRound.Text = "Three Sets";
+                    gameTitle = "Three Sets";
                     break;
                 case Rounds.ThreeRuns:
-                    lblGameRound.Text = "Three Runs";
+                    gameTitle = "Three Runs";
                     break;
                 case Rounds.ThreeSetsOneRun:
-                    lblGameRound.Text = "Three Sets One Run";
+                    gameTitle = "Three Sets One Run";
                     break;
                 case Rounds.TwoSetsTwoRuns:
-                    lblGameRound.Text = "Two Sets Two Runs";
+                    gameTitle = "Two Sets Two Runs";
                     break;
                 case Rounds.FourSets:
-                    lblGameRound.Text = "Four Sets";
+                    gameTitle = "Four Sets";
                     break;
                 case Rounds.Ended:
                     {
@@ -242,6 +321,8 @@ namespace WinApp
                     lblGameRound.Text = "Error getting game round";
                     break;
             }
+
+            lblGameRound.Text = String.Format( "{0} ({1})", gameTitle, _game.GameDeck.Cards.Count );
         }
 
         // print deck cards to RichTextBox control
@@ -316,6 +397,22 @@ namespace WinApp
             }
         }
 
+        private void printPlayerScores(Game game )
+        {
+            // clear current text
+            rtbPlayerScores.Clear();
+
+            // loop through all players
+            foreach ( Player player in game.Players )
+            {
+                // build player score
+                string scoreBoard = String.Format( "{0} - {1}", player.Name, player.Score );
+
+                // add player score and new line
+                rtbPlayerScores.AppendText( scoreBoard + Environment.NewLine );
+            }
+        }
+
         private void btnDeal_Click( object sender, EventArgs e )
         {
             // Check for a dealer
@@ -346,6 +443,10 @@ namespace WinApp
             btnPickDealer.Visible = false;
             btnRifleShuffle.Visible = false;
             btnOverhandShuffle.Visible = false;
+            btnAdvDealer.Visible = false;
+
+            // show reset cards button
+            btnResetCards.Visible = true;
             
             // Redraw table
             DrawGameTable();
@@ -390,7 +491,7 @@ namespace WinApp
             Button control = ( Button )sender;
 
             // get playernumber from button
-            int playerNumber = Convert.ToInt32(extractNumber( control.Name.ToString() ));
+            int playerNumber = Convert.ToInt32(extractPlayerNumber( control.Name.ToString() ));
 
             // draw card
             _game = GameManagement.DrawCard( _game, playerNumber );
@@ -411,7 +512,7 @@ namespace WinApp
                 Button control = ( Button ) sender;
 
                 // get playernumber from button
-                int playerNumber = Convert.ToInt32( extractNumber( control.Name.ToString() ) );
+                int playerNumber = Convert.ToInt32( extractPlayerNumber( control.Name.ToString() ) );
 
                 // draw from discard pile
                 _game = GameManagement.DrawDiscardCard( _game, playerNumber );
@@ -436,7 +537,7 @@ namespace WinApp
             RichTextBox rtbCard = ( RichTextBox ) sender;
             
             // get playerIndex for array from control name
-            int playerIndex = (Convert.ToInt32( extractNumberHand( rtbCard.Name.ToString() ) ) -1);
+            int playerIndex = (Convert.ToInt32( extractPlayerNumberHand( rtbCard.Name.ToString() ) ) -1);
 
             // check that it is the current players turn 
             // that the card text box wasnt empty 
@@ -470,7 +571,7 @@ namespace WinApp
             Button button = ( Button ) sender;
 
             // get playerIndex for array from control name ( index is 1 less than player number)
-            int playerIndex = ( Convert.ToInt32( extractNumber( button.Name.ToString() ) ) - 1 );
+            int playerIndex = ( Convert.ToInt32( extractPlayerNumber( button.Name.ToString() ) ) - 1 );
 
             // Check if someone else has already clicked buy
             List<Player> currentBuyer = _game.Players.Where( x => x.IsBuyer == true ).ToList();
@@ -508,7 +609,7 @@ namespace WinApp
             Button button = ( Button ) sender;
 
             // get playerIndex for array from button name ( index is 1 less than player number)
-            int currentPlayer = Convert.ToInt32( extractNumber( button.Name.ToString() ) );
+            int currentPlayer = Convert.ToInt32( extractPlayerNumber( button.Name.ToString() ) );
 
             // get Buyer
             Player buyer = _game.Players.Where( x => x.IsBuyer == true ).FirstOrDefault();
@@ -540,6 +641,47 @@ namespace WinApp
             drawBuyButtons();
 
             // Redraw table
+            DrawGameTable();
+        }
+
+        private void btnResetCards_Click( object sender, EventArgs e )
+        {
+            // Move all cards back to deck
+            _game = GameManagement.MoveAllCardsBackToDeck( _game );
+
+            // unhide buttons
+            btnRifleShuffle.Visible = true;
+            btnOverhandShuffle.Visible = true;
+            btnDeal.Visible = true;
+            btnAdvDealer.Visible = true;
+
+            // hide reset button
+            btnResetCards.Visible = false;
+
+            // Redraw game table
+            DrawGameTable();
+        }
+
+        private void btnTallyScore_Click( object sender, EventArgs e )
+        {
+            // total scores
+            _game = GameManagement.CalculateRoundScores( _game );
+
+            // Redraw game table
+            DrawGameTable();
+        }
+
+        private void btnAdvDealer_Click( object sender, EventArgs e )
+        {
+            // this button is for testing
+
+            // advance dealer
+            _game = GameManagement.AdvancedDealer( _game );
+
+            // clear current turn
+            _game = Player.ResetCurrentTurn( _game );
+
+            // redraw game table
             DrawGameTable();
         }
 
@@ -647,18 +789,26 @@ namespace WinApp
             hideButton( "DrawDiscard", playerNumber );
         }
 
-        // Get number from string and return only number
-        private string extractNumber( string original )
+        // Get player number from string and return only number
+        private string extractPlayerNumber( string original )
         {
             return new string( original.Where( c => Char.IsDigit( c ) ).ToArray() );
         }
 
-        // Get number from hand control (control has multiple numbers, we need the number before Hand
-        private string extractNumberHand( string original )
+        // Get player number from hand control (control has multiple numbers, we need the number after Hand
+        private string extractPlayerNumberHand( string original )
         {
             string[] number = original.Split( 'H' );
 
             return new string( number[0].Where( c => Char.IsDigit( c ) ).ToArray() );
+        }
+
+        // Get hand number from hand control (control has multiple numbers, we need the number after Hand
+        private string extractHandNumberHand( string original )
+        {
+            string[] number = original.Split( 'd' );
+
+            return new string( number[1].Where( c => Char.IsDigit( c ) ).ToArray() );
         }
 
 

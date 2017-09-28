@@ -55,6 +55,18 @@ namespace GameCore
             return game;
         }
 
+        public static Game ResetCurrentTurn( Game game )
+        {
+            // loop through players
+            for ( int i = 0; i < game.Players.Count; i++ )
+            {
+                // set currentTurn false
+                game.Players[i].CurrentTurn = false;
+            }
+
+            return game;
+        }
+
         // Remove when done testing, only used for testing
         public static List<Player> CreateTestPlayers()
         {

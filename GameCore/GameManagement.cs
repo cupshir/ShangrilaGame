@@ -193,6 +193,59 @@ namespace GameCore
             return game;
         }
 
+        public static Game MoveCardInHand(Game game, int player, int card1, int card2 )
+        {
+            
+            // get first card
+            Card firstCard = game.Players[(player -1)].Hand[(card1 - 1)];
+
+            // get second card
+            Card secondCard = game.Players[( player - 1 )].Hand[(card2 - 1)];
+
+            // replace first card with second card
+            game.Players[( player - 1 )].Hand[( card1 - 1)] = secondCard;
+
+            // replace second card with first card
+            game.Players[( player - 1 )].Hand[( card2 - 1 )] = firstCard;
+
+            return game;
+        }
+
+        public static Game MoveAllCardsBackToDeck(Game game )
+        {
+            // loop through players
+            for ( int i = 0; i < game.Players.Count; i++ )
+            {
+                // check if player has cards
+                if ( game.Players[i].Hand.Count > 0 )
+                {
+                    // loop through cards in player hand
+                    foreach ( Card card in game.Players[i].Hand )
+                    {
+                        game.GameDeck.Cards.Add( card );
+                    }
+
+                    // clear player hand
+                    game.Players[i].Hand.Clear();
+                }
+            }
+
+            // check if cards in discard pile
+            if ( game.DiscardPile.Cards.Count > 0 )
+            {
+                // loop through cards in discard pile
+                foreach ( Card card in game.DiscardPile.Cards )
+                {
+                    game.GameDeck.Cards.Add( card );
+                }
+
+                // clear discard pile
+                game.DiscardPile.Cards.Clear();
+            }
+
+            return game;
+        }
+
         public static Game DetermineDealer( Game game )
         {
             // Clear Player cards, score, isdealer, and current turn
@@ -254,6 +307,12 @@ namespace GameCore
             {
                 // set the isdealer true on player with highest score
                 game.Players.Find( x => x.Score == dealer.Score ).IsDealer = true;
+
+                // clear player scores for game
+                foreach ( Player player in game.Players )
+                {
+                    player.Score = 0;
+                }
             }
             else
             {
@@ -263,5 +322,65 @@ namespace GameCore
 
             return game;
         }
+
+        public static Game AdvancedDealer(Game game )
+        {
+            // get list of player(s) flagged as dealer
+            List<Player> dealers = game.Players.Where( x => x.IsDealer == true ).ToList();
+
+            // check that only 1 was returned
+            if ( dealers.Count == 1 )
+            {
+                // get dealer
+                Player dealer = dealers.FirstOrDefault();
+
+                // get dealer index
+                int dealerIndex = game.Players.FindIndex( a => a.SeatNumber == dealer.SeatNumber );
+
+                // remove dealer from dealer
+                game.Players[dealerIndex].IsDealer = false;
+
+                int nextDealer = (dealerIndex +1) % game.Players.Count;
+
+                // make next player dealer
+                game.Players[nextDealer].IsDealer = true;
+
+            }
+            else
+            {
+                // throw error
+            }
+
+            return game;
+        }
+
+        public static Game CalculateRoundScores(Game game )
+        {
+            // loop through players
+            for ( int i = 0; i < game.Players.Count; i++ )
+            {
+                // loop through cards in player hand
+                foreach ( Card card in game.Players[i].Hand )
+                {
+                    // add card value to player score
+                    game.Players[i].Score += card.Value;
+                }
+            }
+
+            return game;
+        }
+
+        public static Game ZeroScores(Game game )
+        {
+            // loop through players
+            foreach ( Player player in game.Players )
+            {
+                player.Score = 0;
+            }
+
+            return game;
+        }
+
+
     }
 }
