@@ -97,6 +97,14 @@ namespace WinApp
                     string rtbControlName = "rtbPlayer" + ( i + 1 ) + "Hand" + ( k );
                     RichTextBox rtbControl = ( RichTextBox ) this.Controls.Find( rtbControlName, true ).FirstOrDefault();
                     rtbControl.Clear();
+
+                    // Also clear table hand text boxes
+                    if ( k < 5 )
+                    {
+                        rtbControlName = "rtbPlayer" + ( i + 1 ) + "Table" + ( k );
+                        rtbControl = ( RichTextBox ) this.Controls.Find( rtbControlName, true ).FirstOrDefault();
+                        rtbControl.Clear();
+                    }
                 }
 
                 // Ensure there are cards in the players hand
@@ -160,6 +168,55 @@ namespace WinApp
                         rtbPlayerHand.AppendText( displayText );
                     }
                 }
+
+                for ( int l = 0; l < 4; l++ )
+                {
+
+                    string rtbTableHandName = "rtbPlayer" + ( i + 1 ) + "Table" + ( l + 1 );
+                    RichTextBox rtbTableHand = ( RichTextBox ) this.Controls.Find( rtbTableHandName, true ).FirstOrDefault();
+
+                    // check for cards in table hand
+                    if ( _game.Players[i].TableHands[l].Count > 0 )
+                    {
+
+                        printCards( _game.Players[i].TableHands[l], rtbTableHand );
+
+                    }
+
+                    // center text
+                    rtbTableHand.SelectionAlignment = HorizontalAlignment.Center;
+
+                    // add events if current turn (remove event and add each round to fix timing issue)
+                    if ( _game.Players[i].CurrentTurn == true )
+                    {
+                        // add discard click event
+                        rtbTableHand.Click -= btnDiscard_Click;
+                        rtbTableHand.Click += btnDiscard_Click;
+
+                        // add drag drop events
+                        rtbTableHand.MouseDown -= rtbPlayerHand_MouseDown;
+                        rtbTableHand.MouseMove -= rtbPlayerHand_MouseMove;
+                        rtbTableHand.DragEnter -= rtbPlayerHand_DragEnter;
+                        rtbTableHand.DragDrop -= rtbPlayerHand_DragDrop;
+
+                        rtbTableHand.MouseDown += rtbPlayerHand_MouseDown;
+                        rtbTableHand.MouseMove += rtbPlayerHand_MouseMove;
+                        rtbTableHand.AllowDrop = true;
+                        rtbTableHand.DragEnter += rtbPlayerHand_DragEnter;
+                        rtbTableHand.DragDrop += rtbPlayerHand_DragDrop;
+                    }
+                    else
+                    {
+                        // remove events from textbox
+                        rtbTableHand.Click -= btnDiscard_Click;
+                        rtbTableHand.MouseDown -= rtbPlayerHand_MouseDown;
+                        rtbTableHand.MouseMove -= rtbPlayerHand_MouseMove;
+                        rtbTableHand.AllowDrop = false;
+                        rtbTableHand.DragEnter -= rtbPlayerHand_DragEnter;
+                        rtbTableHand.DragDrop -= rtbPlayerHand_DragDrop;
+                    }
+
+                }
             }
         }
 
@@ -198,24 +255,47 @@ namespace WinApp
             // set sender control
             RichTextBox rtbControl = ( RichTextBox ) sender;
 
-            // get player of new card and old card
-            int newCardPlayer = Convert.ToInt32(extractPlayerNumberHand(e.Data.GetData(DataFormats.Text).ToString()));
-            int oldCardPlayer = Convert.ToInt32(extractPlayerNumberHand( rtbControl.Name ));
-
-            // check that player index is the same
-            if ( newCardPlayer == oldCardPlayer )
+            // Check if player move cards within hand
+            if ( rtbControl.Name.Contains( "Hand" ) )
             {
-                // get card number of new and old card
-                int newCard = Convert.ToInt32( extractHandNumberHand( e.Data.GetData( DataFormats.Text ).ToString() ));
-                int oldCard = Convert.ToInt32( extractHandNumberHand( rtbControl.Name ) );
+                // get player of new card and old card
+                int moveCardPlayer = Convert.ToInt32( extractPlayerNumberHand( e.Data.GetData( DataFormats.Text ).ToString() ) );
+                int oldCardPlayer = Convert.ToInt32( extractPlayerNumberHand( rtbControl.Name ) );
 
-                // check that the card numbers are different
-                if ( newCard != oldCard )
+                // check that player index is the same
+                if ( moveCardPlayer == oldCardPlayer )
                 {
-                    // move the cards in the players hand
-                    _game = GameManagement.MoveCardInHand( _game, newCardPlayer, newCard, oldCard );
-                }            
+                    // get card number of new and old card
+                    int moveCard = Convert.ToInt32( extractHandNumber( e.Data.GetData( DataFormats.Text ).ToString() ) );
+                    int oldCard = Convert.ToInt32( extractHandNumber( rtbControl.Name ) );
+
+                    // check that the card numbers are different
+                    if ( moveCard != oldCard )
+                    {
+                        // move the cards in the players hand
+                        _game = GameManagement.MoveCardInHand( _game, moveCardPlayer, moveCard, oldCard );
+                    }
+                }
             }
+            // if player didnt move in hand are they moving to table
+            else if ( rtbControl.Name.Contains( "Table" ) )
+            {
+                int moveCardPlayer = Convert.ToInt32( extractPlayerNumberHand( e.Data.GetData( DataFormats.Text ).ToString() ) );
+                int tableCardPlayer = Convert.ToInt32( extractPlayerNumberTable( rtbControl.Name ) );
+
+                if ( moveCardPlayer == tableCardPlayer )
+                {
+                    int moveCard = Convert.ToInt32( extractHandNumber( e.Data.GetData( DataFormats.Text ).ToString() ) );
+                    int tableHand = Convert.ToInt32( extractTableHandNumber( rtbControl.Name ) );
+
+                    // move the card to the table
+                    _game = GameManagement.MoveCardToTable( _game, moveCardPlayer, moveCard, tableHand );
+
+                }
+
+            }
+
+            
 
             // Redraw game table
             DrawGameTable();
@@ -795,7 +875,7 @@ namespace WinApp
             return new string( original.Where( c => Char.IsDigit( c ) ).ToArray() );
         }
 
-        // Get player number from hand control (control has multiple numbers, we need the number after Hand
+        // Get player number from hand control (control has multiple numbers, we need the number before Hand
         private string extractPlayerNumberHand( string original )
         {
             string[] number = original.Split( 'H' );
@@ -803,14 +883,29 @@ namespace WinApp
             return new string( number[0].Where( c => Char.IsDigit( c ) ).ToArray() );
         }
 
+        // Get player number from table hand control (control has multiple numbers, we need the number before Table
+        private string extractPlayerNumberTable( string original )
+        {
+            string[] number = original.Split( 'T' );
+
+            return new string( number[0].Where( c => Char.IsDigit( c ) ).ToArray() );
+        }
+
         // Get hand number from hand control (control has multiple numbers, we need the number after Hand
-        private string extractHandNumberHand( string original )
+        private string extractHandNumber( string original )
         {
             string[] number = original.Split( 'd' );
 
             return new string( number[1].Where( c => Char.IsDigit( c ) ).ToArray() );
         }
 
+        // Get table hand number from table hand control (control has multiple numbers, we need the number after Table
+        private string extractTableHandNumber( string original )
+        {
+            string[] number = original.Split( 'b' );
+
+            return new string( number[2].Where( c => Char.IsDigit( c ) ).ToArray() );
+        }
 
     }
 }

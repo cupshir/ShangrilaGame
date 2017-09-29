@@ -210,6 +210,23 @@ namespace GameCore
             return game;
         }
 
+        public static Game MoveCardToTable(Game game, int player, int card, int tableHand )
+        {
+            // player index (1 less then player number)
+            int playerIndex = player - 1;
+
+            // Get card to move
+            Card moveCard = game.Players[playerIndex].Hand[( card - 1 )];
+
+            // remove card from player hand
+            game.Players[playerIndex].Hand.Remove( moveCard );
+
+            // add card to table
+            game.Players[playerIndex].TableHands[tableHand-1].Add( moveCard );
+            
+            return game;
+        }
+
         public static Game MoveAllCardsBackToDeck(Game game )
         {
             // loop through players
