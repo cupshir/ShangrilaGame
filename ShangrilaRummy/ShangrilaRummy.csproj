@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">iPhoneSimulator</Platform>
+    <ProjectGuid>{AEC9B6C7-14BA-4CE0-BCCB-B0A53AB0C1F7}</ProjectGuid>
+    <ProjectTypeGuids>{FEACFBD2-3405-455C-9665-78FE426C6842};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <OutputType>Exe</OutputType>
+    <RootNamespace>ShangrilaRummy</RootNamespace>
+    <AssemblyName>ShangrilaRummy</AssemblyName>
+    <IPhoneResourcePrefix>Resources</IPhoneResourcePrefix>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhoneSimulator' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Debug</OutputPath>
+    <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchFastDev>true</MtouchFastDev>
+    <IOSDebuggerPort>26120</IOSDebuggerPort>
+    <MtouchLink>None</MtouchLink>
+    <MtouchArch>x86_64</MtouchArch>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <DeviceSpecificBuild>false</DeviceSpecificBuild>
+    <MtouchVerbosity></MtouchVerbosity>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhone' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhone\Release</OutputPath>
+    <DefineConstants></DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchUseLlvm>true</MtouchUseLlvm>
+    <MtouchFloat32>true</MtouchFloat32>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchArch>ARM64</MtouchArch>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <MtouchVerbosity></MtouchVerbosity>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|iPhoneSimulator' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\iPhoneSimulator\Release</OutputPath>
+    <DefineConstants></DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchLink>None</MtouchLink>
+    <MtouchArch>x86_64</MtouchArch>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <MtouchVerbosity></MtouchVerbosity>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|iPhone' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\iPhone\Debug</OutputPath>
+    <DefineConstants>DEBUG;ENABLE_TEST_CLOUD;</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <CodesignKey>iPhone Developer</CodesignKey>
+    <DeviceSpecificBuild>true</DeviceSpecificBuild>
+    <MtouchDebug>true</MtouchDebug>
+    <MtouchNoSymbolStrip>true</MtouchNoSymbolStrip>
+    <MtouchFastDev>true</MtouchFastDev>
+    <MtouchFloat32>true</MtouchFloat32>
+    <CodesignEntitlements>Entitlements.plist</CodesignEntitlements>
+    <IOSDebuggerPort>19659</IOSDebuggerPort>
+    <MtouchLink>SdkOnly</MtouchLink>
+    <MtouchArch>ARM64</MtouchArch>
+    <MtouchHttpClientHandler>NSUrlSessionHandler</MtouchHttpClientHandler>
+    <MtouchVerbosity></MtouchVerbosity>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="Xamarin.iOS" />
+  </ItemGroup>
+  <ItemGroup>
+    <ImageAsset Include="Assets.xcassets\AppIcon.appiconset\Contents.json" />
+    <ImageAsset Include="Assets.xcassets\Contents.json" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Resources\" />
+    <Folder Include="Model\" />
+    <Folder Include="Service\" />
+  </ItemGroup>
+  <ItemGroup>
+    <InterfaceDefinition Include="LaunchScreen.storyboard" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Info.plist" />
+    <None Include="Entitlements.plist" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Main.cs" />
+    <Compile Include="AppDelegate.cs" />
+    <Compile Include="LoginViewController.cs" />
+    <Compile Include="GameBoardViewController.cs" />
+    <Compile Include="CardView.cs" />
+    <Compile Include="DeckView.cs" />
+    <Compile Include="Model\Card.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <Compile Include="Model\Deck.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <Compile Include="Model\Game.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <Compile Include="Model\Hand.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <Compile Include="Model\Player.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <Compile Include="Service\CardService.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <Compile Include="Service\DeckService.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <Compile Include="Service\GameService.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <Compile Include="Service\HandService.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <Compile Include="Service\PlayerService.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+  </ItemGroup>
+  <ItemGroup>
+    <BundleResource Include="Resources\Cards\10C.png" />
+    <BundleResource Include="Resources\Cards\10D.png" />
+    <BundleResource Include="Resources\Cards\10H.png" />
+    <BundleResource Include="Resources\Cards\10S.png" />
+    <BundleResource Include="Resources\Cards\2C.png" />
+    <BundleResource Include="Resources\Cards\2D.png" />
+    <BundleResource Include="Resources\Cards\2H.png" />
+    <BundleResource Include="Resources\Cards\2S.png" />
+    <BundleResource Include="Resources\Cards\3C.png" />
+    <BundleResource Include="Resources\Cards\3D.png" />
+    <BundleResource Include="Resources\Cards\3H.png" />
+    <BundleResource Include="Resources\Cards\3S.png" />
+    <BundleResource Include="Resources\Cards\4C.png" />
+    <BundleResource Include="Resources\Cards\4D.png" />
+    <BundleResource Include="Resources\Cards\4H.png" />
+    <BundleResource Include="Resources\Cards\4S.png" />
+    <BundleResource Include="Resources\Cards\5C.png" />
+    <BundleResource Include="Resources\Cards\5D.png" />
+    <BundleResource Include="Resources\Cards\5H.png" />
+    <BundleResource Include="Resources\Cards\5S.png" />
+    <BundleResource Include="Resources\Cards\6C.png" />
+    <BundleResource Include="Resources\Cards\6D.png" />
+    <BundleResource Include="Resources\Cards\6H.png" />
+    <BundleResource Include="Resources\Cards\6S.png" />
+    <BundleResource Include="Resources\Cards\7C.png" />
+    <BundleResource Include="Resources\Cards\7D.png" />
+    <BundleResource Include="Resources\Cards\7H.png" />
+    <BundleResource Include="Resources\Cards\7S.png" />
+    <BundleResource Include="Resources\Cards\8C.png" />
+    <BundleResource Include="Resources\Cards\8D.png" />
+    <BundleResource Include="Resources\Cards\8H.png" />
+    <BundleResource Include="Resources\Cards\8S.png" />
+    <BundleResource Include="Resources\Cards\9C.png" />
+    <BundleResource Include="Resources\Cards\9D.png" />
+    <BundleResource Include="Resources\Cards\9H.png" />
+    <BundleResource Include="Resources\Cards\9S.png" />
+    <BundleResource Include="Resources\Cards\AC.png" />
+    <BundleResource Include="Resources\Cards\AD.png" />
+    <BundleResource Include="Resources\Cards\AH.png" />
+    <BundleResource Include="Resources\Cards\AS.png" />
+    <BundleResource Include="Resources\Cards\JC.png" />
+    <BundleResource Include="Resources\Cards\JD.png" />
+    <BundleResource Include="Resources\Cards\JH.png" />
+    <BundleResource Include="Resources\Cards\JS.png" />
+    <BundleResource Include="Resources\Cards\KC.png" />
+    <BundleResource Include="Resources\Cards\KD.png" />
+    <BundleResource Include="Resources\Cards\KH.png" />
+    <BundleResource Include="Resources\Cards\KS.png" />
+    <BundleResource Include="Resources\Cards\QC.png" />
+    <BundleResource Include="Resources\Cards\QD.png" />
+    <BundleResource Include="Resources\Cards\QH.png" />
+    <BundleResource Include="Resources\Cards\QS.png" />
+  </ItemGroup>
+  <Import Project="$(MSBuildExtensionsPath)\Xamarin\iOS\Xamarin.iOS.CSharp.targets" />
+</Project>
