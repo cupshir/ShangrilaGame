@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GameCore.Model
+namespace ShangrilaRummy.Model
 {
     public class Player
     {
@@ -13,5 +13,10 @@ namespace GameCore.Model
         public int SeatNumber { get; set; }
         public Hand Hand { get; set; }
         public List<Hand> TableHands { get; set; }
+        public CardView CardView { get; set; }
+
+        public Player()
+        {
+        }
     }
 }

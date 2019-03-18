@@ -1,7 +1,5 @@
 /Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/bin/iPhoneSimulator/Debug/ShangrilaRummy.exe
 /Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/bin/iPhoneSimulator/Debug/ShangrilaRummy.pdb
-/Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/bin/iPhoneSimulator/Debug/GameCore.dll
-/Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/bin/iPhoneSimulator/Debug/GameCore.pdb
 /Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/obj/iPhoneSimulator/Debug/ibtool/_BundleResourceWithLogicalName.items
 /Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/obj/iPhoneSimulator/Debug/actool/_PartialAppManifest.items
 /Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/obj/iPhoneSimulator/Debug/actool/_BundleResourceWithLogicalName.items
@@ -60,8 +58,7 @@
 /Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/obj/iPhoneSimulator/Debug/optimized/Cards/QH.png
 /Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/obj/iPhoneSimulator/Debug/optimized/Cards/QS.png
 /Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/obj/iPhoneSimulator/Debug/optimized/
-/Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/obj/iPhoneSimulator/Debug/ShangrilaRummy.csprojAssemblyReference.cache
 /Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/obj/iPhoneSimulator/Debug/ShangrilaRummy.csproj.CoreCompileInputs.cache
-/Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/obj/iPhoneSimulator/Debug/ShangrilaRummy.csproj.CopyComplete
 /Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/obj/iPhoneSimulator/Debug/ShangrilaRummy.exe
 /Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/obj/iPhoneSimulator/Debug/ShangrilaRummy.pdb
+/Users/christopherupshir/repositories/ShangrilaGame/ShangrilaRummy/obj/iPhoneSimulator/Debug/ShangrilaRummy.csprojAssemblyReference.cache

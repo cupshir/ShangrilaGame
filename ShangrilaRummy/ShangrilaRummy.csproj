@@ -109,16 +109,17 @@
     <Compile Include="GameBoardViewController.cs" />
     <Compile Include="CardView.cs" />
     <Compile Include="DeckView.cs" />
-    <Compile Include="Model\Card.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="Model\Deck.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="Model\Game.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="Model\Hand.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="Model\Player.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="Service\CardService.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="Service\DeckService.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="Service\GameService.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="Service\HandService.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
-    <Compile Include="Service\PlayerService.cs" Condition=" '$(EnableDefaultCompileItems)' == 'true' " />
+    <Compile Include="Model\Card.cs" />
+    <Compile Include="Model\Deck.cs" />
+    <Compile Include="Model\Game.cs" />
+    <Compile Include="Model\Player.cs" />
+    <Compile Include="Model\Hand.cs" />
+    <Compile Include="Service\CardService.cs" />
+    <Compile Include="Service\DeckService.cs" />
+    <Compile Include="Service\HandService.cs" />
+    <Compile Include="Service\PlayerService.cs" />
+    <Compile Include="Service\GameService.cs" />
+    <Compile Include="HandView.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Cards\10C.png" />

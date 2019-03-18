@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GameCore.Model
+namespace ShangrilaRummy.Model
 {
     public class Hand
     {

@@ -1,28 +1,28 @@
 ﻿using System;
 using UIKit;
-using GameCore.Model;
 using CoreGraphics;
 using System.Drawing;
+using ShangrilaRummy.Model;
 
 namespace ShangrilaRummy
 {
     public class CardView : UIView
     {
-        public Card card;
+        public Card Card;
 
-        UILabel value;
+        UILabel _Value;
 
-        public CardView( Card newCard)
+        public CardView(Card newCard)
         {
             BackgroundColor = UIColor.Red;
 
-            value = new UILabel();
-            value.Text = newCard.ShortName;
-            value.TextColor = UIColor.Green;
+            _Value = new UILabel();
+            _Value.Text = newCard.ShortName;
+            _Value.TextColor = UIColor.Green;
 
-            value.SizeToFit();
+            _Value.SizeToFit();
 
-            AddSubview(value);  
+            AddSubview(_Value);  
 
         
 
@@ -32,10 +32,13 @@ namespace ShangrilaRummy
         public void UpdateLayout() 
         {
             Frame = new CGRect(0, 0, 50, 50);
-            value.Frame = new CGRect(0, 0, value.Frame.Width, value.Frame.Height);
-
+            _Value.Frame = new CGRect(0, 0, _Value.Frame.Width,_Value.Frame.Height);
         }
 
+        public void UpdateCard(string shortName)
+        {
+            _Value.Text = shortName;
+        }
 
 
     }

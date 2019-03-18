@@ -1,12 +1,15 @@
 ﻿using System;
-namespace GameCore
+namespace ShangrilaRummy.Service
 {
     public class CardService
     {
+        public CardService()
+        {
+        }
 
         public static string GetName(int i)
         {
-            switch ( i )
+            switch (i)
             {
                 case 14:
                     return "Ace";
@@ -23,7 +26,7 @@ namespace GameCore
 
         public static string GetShortName(int i)
         {
-            switch ( i )
+            switch (i)
             {
                 case 14:
                     return "A";

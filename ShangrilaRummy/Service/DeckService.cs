@@ -1,26 +1,31 @@
 ﻿using System;
 using System.Collections.Generic;
-using GameCore.Model;
+using ShangrilaRummy.Model;
 
-namespace GameCore
+namespace ShangrilaRummy.Service
 {
     public class DeckService
     {
+        public DeckService()
+        {
+        }
 
         public static Deck BuildDecks(int numberToBuild)
         {
-            // Build 1st deck
-            Deck deck = BuildDeck();
+            Deck deck = new Deck();
 
-            // Build multiple decks if required
-            if (numberToBuild > 1)
+            deck.Cards = new List<Card>();
+
+            int numberOfDecks = 0;
+
+            for (int i = 0; i < numberToBuild; i++)
             {
-                for (int i = 1; i < numberToBuild; i++)
-                {
-                    Deck addDeck = BuildDeck();
-                    deck.Cards.AddRange(addDeck.Cards);
-                }
+                Deck addDeck = BuildDeck();
+                deck.Cards.AddRange(addDeck.Cards);
+                numberOfDecks++;
             }
+
+            deck.NumberOfDecks = numberOfDecks;
 
             return deck;
         }
@@ -60,6 +65,17 @@ namespace GameCore
                 card.DealValue = 15;
 
                 deck.Cards.Add(card);
+            }
+
+            return deck;
+        }
+
+        public static Deck ShuffleDeck(Deck deck)
+        {
+            for (int i = 0; i < 7; i++)
+            {
+                deck = RiffleShuffleDeck(deck);
+                deck = OverhandShuffleDeck(deck);
             }
 
             return deck;
@@ -236,6 +252,6 @@ namespace GameCore
 
             return stackNumber;
         }
+
     }
 }
-

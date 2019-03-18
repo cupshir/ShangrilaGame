@@ -1,107 +1,113 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
-using GameCore.Model;
+using ShangrilaRummy.Model;
+using static ShangrilaRummy.Model.Game;
 
-namespace GameCore.Service
+namespace ShangrilaRummy.Service
 {
     public class GameService
     {
+        public GameService()
+        {
+        }
+
         public static GameService Game = new GameService();
 
-        //public static Game CreateGame(List<Player> players, int numberOfDecks)
-        //{
-        //    Game newGame = new Game()
-        //    {
-        //        Players = players,
-        //        GameDeck = DeckService.BuildDecks(numberOfDecks),
-        //        DiscardPile = new Deck() { Cards = new List<Card>() },
-        //        Round = Rounds.NotStarted
-        //    };
+        public static Game CreateGame(List<Player> players, int numberOfDecks)
+        {
+            Game newGame = new Game()
+            {
+                Players = players,
+                GameDeck = DeckService.BuildDecks(numberOfDecks),
+                DiscardPile = new Deck() { Cards = new List<Card>() },
+                Round = Rounds.NotStarted
+            };
 
-        //    return newGame;
-        //}
+            return newGame;
+        }
 
-        //public static Game Deal(Game game)
-        //{
-        //    // First clear out any existing cards from player hands from determing deal or previous game
-        //    for (int i = 0; i < game.Players.Count; i++)
-        //    {
-        //        game.Players[i].Hand.Cards.Clear();
-        //    }
+        public static Game Deal(Game game)
+        {
+            // First clear out any existing cards from player hands from determing deal or previous game
+            for (int i = 0; i < game.Players.Count; i++)
+            {
+                game.Players[i].Hand.Cards.Clear();
+            }
 
-        //    // Create List of players for current deal order
-        //    List<Player> currentPlayers = new List<Player>();
+            // Create List of players for current deal order
+            List<Player> currentPlayers = new List<Player>();
 
-        //    // Create dealer object and new dealer index
-        //    Player dealer = new Player();
-        //    int dealerIndex = 0;
+            // Create dealer object and new dealer index
+            Player dealer = new Player();
+            int dealerIndex = 0;
 
-        //    // Get the dealer
-        //    dealer = game.Players.Where(a => a.IsDealer == true).Single();
+            // Get the dealer
+            dealer = game.Players.Where(a => a.IsDealer == true).Single();
 
-        //    // get the index number of the dealer
-        //    if (dealer != null)
-        //    {
-        //        dealerIndex = game.Players.FindIndex(a => a.SeatNumber == dealer.SeatNumber);
+            // get the index number of the dealer
+            if (dealer != null)
+            {
+                dealerIndex = game.Players.FindIndex(a => a.SeatNumber == dealer.SeatNumber);
 
-        //        // Set the current turn for player after dealer
-        //        int currentPlayerIndex = (dealerIndex + 1) % game.Players.Count;
-        //        game.Players[currentPlayerIndex].CurrentTurn = true;
+                // Set the current turn for player after dealer
+                int currentPlayerIndex = (dealerIndex + 1) % game.Players.Count;
+                game.Players[currentPlayerIndex].CurrentTurn = true;
 
-        //    }
-        //    else
-        //    {
-        //        // no dealer set, return. Throw error at some point...
-        //        return game;
-        //    }
+            }
+            else
+            {
+                // no dealer set, return. Throw error at some point...
+                return game;
+            }
 
-        //    // Add players from game into playerHands list starting with Dealer+1 (dealer should be last in list)
-        //    // Skip if dealer is last in game list to prevent out of range
-        //    if (dealerIndex != game.Players.Count)
-        //    {
-        //        // loop through each player after the dealer
-        //        for (int i = (dealerIndex + 1); i < game.Players.Count; i++)
-        //        {
-        //            // add player to players 
-        //            currentPlayers.Add(game.Players[i]);
-        //        }
-        //    }
-        //    // Add remaining players
-        //    for (int i = 0; i <= dealerIndex; i++)
-        //    {
-        //        // add player to player hands
-        //        currentPlayers.Add(game.Players[i]);
-        //    }
+            // Add players from game into playerHands list starting with Dealer+1 (dealer should be last in list)
+            // Skip if dealer is last in game list to prevent out of range
+            if (dealerIndex != game.Players.Count)
+            {
+                // loop through each player after the dealer
+                for (int i = (dealerIndex + 1); i < game.Players.Count; i++)
+                {
+                    // add player to players 
+                    currentPlayers.Add(game.Players[i]);
+                }
+            }
+            // Add remaining players
+            for (int i = 0; i <= dealerIndex; i++)
+            {
+                // add player to player hands
+                currentPlayers.Add(game.Players[i]);
+            }
 
-        //    //
-        //    // homework build player list in single while loop with Mod
-        //    //
+            //
+            // homework build player list in single while loop with Mod
+            //
 
-        //    // Deal 11 cards to the players removing the cards from the deck
-        //    for (int i = 0; i < 11; i++)
-        //    {
-        //        // loop through each player
-        //        for (int j = 0; j < currentPlayers.Count; j++)
-        //        {
-        //            // get first card in deck
-        //            Card card = game.GameDeck.Cards[0];
-        //            // add card to player hand
-        //            currentPlayers[j].Hand.Cards.Add(card);
-        //            // remove card from deck
-        //            game.GameDeck.Cards.Remove(card);
-        //        }
-        //    }
+            // Deal 11 cards to the players removing the cards from the deck
+            for (int i = 0; i < 11; i++)
+            {
+                // loop through each player
+                for (int j = 0; j < currentPlayers.Count; j++)
+                {
+                    // get first card in deck
+                    Card card = game.GameDeck.Cards[0];
+                    // add card to player hand
+                    currentPlayers[j].Hand.Cards.Add(card);
+                    // remove card from deck
+                    game.GameDeck.Cards.Remove(card);
+                }
+            }
 
-        //    // loop through each player in player hands
-        //    foreach (Player player in currentPlayers)
-        //    {
-        //        // Copy player hands back into game object
-        //        game.Players.Find(x => x.SeatNumber == player.SeatNumber).Hand = player.Hand;
-        //    }
+            // loop through each player in player hands
+            foreach (Player player in currentPlayers)
+            {
+                // Copy player hands back into game object
+                game.Players.Find(x => x.SeatNumber == player.SeatNumber).Hand = player.Hand;
+            }
 
-        //    // return the updated game
-        //    return game;
-        //}
+            // return the updated game
+            return game;
+        }
 
 
         // Set IsBuyer for all players to false
@@ -319,7 +325,7 @@ namespace GameCore.Service
                     game.Players[i].Score = 0;
                 }
 
-                // pretty sure this doesnt work, but for sanity check leaving to vefiry thru a debug
+                // pretty sure this doesnt work, but for sanity check leaving to vefiry thru a debug before fixing
                 foreach (Player player in game.Players)
                 {
                     player.Score = 0;
@@ -397,51 +403,47 @@ namespace GameCore.Service
 
 
 
-        //// Remove when done testing, only used for testing
-        //public static List<Player> CreateTestPlayers()
-        //{
-        //    Player player1 = PlayerService.CreatePlayer("Christopher", 1);
-        //    player1.IsDealer = true;
-        //    player1.SeatNumber = 1;
-        //    player1.Hand.Cards = new List<Card>();
-        //    Player player2 = PlayerService.CreatePlayer("Player2", 2);
-        //    player2.SeatNumber = 2;
-        //    player2.Hand.Cards = new List<Card>();
-        //    Player player3 = PlayerService.CreatePlayer("Player3", 3);
-        //    player3.SeatNumber = 3;
-        //    player3.Hand.Cards = new List<Card>();
-
-        //    Player player4 = PlayerService.CreatePlayer("Player4", 4);
-        //    player4.SeatNumber = 4;
-        //    player4.Hand.Cards = new List<Card>();
-
-        //    Player player5 = PlayerService.CreatePlayer("Player5", 5);
-        //    player5.SeatNumber = 5;
-        //    player5.Hand.Cards = new List<Card>();
-
-        //    Player player6 = PlayerService.CreatePlayer("Player6", 6);
-        //    player6.SeatNumber = 6;
-        //    player6.Hand.Cards = new List<Card>();
-
-        //    Player player7 = PlayerService.CreatePlayer("Player7", 7);
-        //    player7.SeatNumber = 7;
-        //    player7.Hand.Cards = new List<Card>();
-
-
-        //    List<Player> players = new List<Player>();
-        //    players.Add(player1);
-        //    players.Add(player2);
-        //    players.Add(player3);
-        //    players.Add(player4);
-        //    players.Add(player5);
-        //    players.Add(player6);
-        //    players.Add(player7);
-
-        //    return players;
-        //}
-
-        public GameService()
+        // Remove when done testing, only used for testing
+        public static List<Player> CreateTestPlayers()
         {
+            Player player1 = PlayerService.CreatePlayer("Christopher", 1);
+            player1.IsDealer = true;
+            player1.SeatNumber = 1;
+            player1.Hand.Cards = new List<Card>();
+            Player player2 = PlayerService.CreatePlayer("Player2", 2);
+            player2.SeatNumber = 2;
+            player2.Hand.Cards = new List<Card>();
+            Player player3 = PlayerService.CreatePlayer("Player3", 3);
+            player3.SeatNumber = 3;
+            player3.Hand.Cards = new List<Card>();
+
+            Player player4 = PlayerService.CreatePlayer("Player4", 4);
+            player4.SeatNumber = 4;
+            player4.Hand.Cards = new List<Card>();
+
+            Player player5 = PlayerService.CreatePlayer("Player5", 5);
+            player5.SeatNumber = 5;
+            player5.Hand.Cards = new List<Card>();
+
+            Player player6 = PlayerService.CreatePlayer("Player6", 6);
+            player6.SeatNumber = 6;
+            player6.Hand.Cards = new List<Card>();
+
+            Player player7 = PlayerService.CreatePlayer("Player7", 7);
+            player7.SeatNumber = 7;
+            player7.Hand.Cards = new List<Card>();
+
+
+            List<Player> players = new List<Player>();
+            players.Add(player1);
+            players.Add(player2);
+            players.Add(player3);
+            players.Add(player4);
+            players.Add(player5);
+            players.Add(player6);
+            players.Add(player7);
+
+            return players;
         }
     }
 }

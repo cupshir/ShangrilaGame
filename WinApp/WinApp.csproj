@@ -87,11 +87,5 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\GameCore\GameCore.csproj">
-      <Project>{337553d7-dfc9-4755-8e65-badf7b32c341}</Project>
-      <Name>GameCoreWindows</Name>
-    </ProjectReference>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

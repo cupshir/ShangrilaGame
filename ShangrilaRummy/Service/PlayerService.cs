@@ -1,10 +1,14 @@
-﻿using System.Collections.Generic;
-using GameCore.Model;
+﻿using System;
+using System.Collections.Generic;
+using ShangrilaRummy.Model;
 
-namespace GameCore.Service
+namespace ShangrilaRummy.Service
 {
     public class PlayerService
     {
+        public PlayerService()
+        {
+        }
 
         public static Player CreatePlayer(string name, int seatNumber)
         {
@@ -27,14 +31,6 @@ namespace GameCore.Service
             }
 
             return newPlayer;
-        }
-
-
-
-
-
-        public PlayerService()
-        {
         }
     }
 }
