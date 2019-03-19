@@ -152,44 +152,54 @@ namespace ShangrilaRummy
 
         private void DrawPlayer()
         {
-
             nfloat cardPosX = 267;
             nfloat cardPosY = 613;
 
             int cardNumber = 0;
-
-            foreach (var handCard in _game.Players[0].Hand.Cards)
+            if(_game.Players[0].Hand.Cards != null && _game.Players[0].Hand.Cards.Count > 0)
             {
-                UILabel card = new UILabel();
-                card.Text = handCard.ShortName;
-                card.TextAlignment = UITextAlignment.Center;
-                card.Frame = new CGRect(cardPosX, cardPosY, 50, 75);
-
-                card.BackgroundColor = UIColor.Red;
-                card.TextColor = UIColor.Blue;
-
-
-                //CardView cardView = new CardView(handCard, true);
-
-                //cardView.Frame = new CGRect(cardPosX, cardPosY, 50, 75);
-
-                View.AddSubview(card);
-
-                cardNumber++;
-
-                // move to next position
-                cardPosX += 55;
-
-                if (cardNumber == 9)
+                for (int i = 0; i < _game.Players[0].Hand.Cards.Count; i++)
                 {
-                    // move next card cords to next line
-                    cardPosX = 267;
-                    cardPosY = 693;
+                    if (_game.Players[0].Hand.Cards[i].CardUIControl == null)
+                    {
+                        // if control doesnt exist create a new one
+                        _game.Players[0].Hand.Cards[i].CardUIControl = new UILabel();
+                        _game.Players[0].Hand.Cards[i].CardUIControl.BackgroundColor = UIColor.Orange;
+                        _game.Players[0].Hand.Cards[i].CardUIControl.TextColor = UIColor.Black;
+                        _game.Players[0].Hand.Cards[i].CardUIControl.TextAlignment = UITextAlignment.Center;
+                        _game.Players[0].Hand.Cards[i].CardUIControl.Text = _game.Players[0].Hand.Cards[i].ShortName;
+
+                        UIPanGestureRecognizer gesture = new UIPanGestureRecognizer();
+
+                        gesture.AddTarget(() => HandleDrag(gesture));
+
+
+                        View.AddSubview(_game.Players[0].Hand.Cards[i].CardUIControl);
+
+                        _game.Players[0].Hand.Cards[i].CardUIControl.AddGestureRecognizer(gesture);
+
+                        _game.Players[0].Hand.Cards[i].CardUIControl.UserInteractionEnabled = true;
+
+                    }
+
+                    _game.Players[0].Hand.Cards[i].CardUIControl.Frame = new CGRect(cardPosX, cardPosY, 50, 75);
+
+                    cardNumber++;
+
+                    // move to next position
+                    cardPosX += 55;
+
+                    if (cardNumber == 9)
+                    {
+                        // move next card cords to next line
+                        cardPosX = 267;
+                        cardPosY = 693;
+                    }
                 }
-
             }
-
         }
+
+
 
         private void DrawOtherPlayers()
         {
@@ -291,6 +301,33 @@ namespace ShangrilaRummy
             {
                 //_game.GameDeck.CardView.Value.Text = _game.GameDeck.Cards[0].ShortName;
                 _game.GameDeck.GameBoardUIControl.Text = _game.GameDeck.Cards[0].ShortName;
+            }
+        }
+
+        private void HandleDrag(UIPanGestureRecognizer recognizer)
+        {
+            CGRect originalFrame = CGRect.Empty;
+
+            UILabel labelDragged = View.Subviews
+
+            if(recognizer.State == UIGestureRecognizerState.Began)
+            {
+                // set postion at start of drag
+                originalFrame = recognizer.View.Frame;
+            }
+
+            if(recognizer.State != (UIGestureRecognizerState.Cancelled | UIGestureRecognizerState.Failed | UIGestureRecognizerState.Possible))
+            {
+                // move the image
+                CGPoint offset = recognizer.TranslationInView(recognizer.View);
+                CGRect newFrame = originalFrame;
+                newFrame.Offset(offset.X, offset.Y);
+                recognizer.View.Frame = newFrame;
+            }
+
+            if(recognizer.State == UIGestureRecognizerState.Ended)
+            {
+                CGRect temp = CGRect.Empty;
             }
         }
     }
