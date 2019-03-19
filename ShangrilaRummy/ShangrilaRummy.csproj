@@ -107,8 +107,6 @@
     <Compile Include="AppDelegate.cs" />
     <Compile Include="LoginViewController.cs" />
     <Compile Include="GameBoardViewController.cs" />
-    <Compile Include="CardView.cs" />
-    <Compile Include="DeckView.cs" />
     <Compile Include="Model\Card.cs" />
     <Compile Include="Model\Deck.cs" />
     <Compile Include="Model\Game.cs" />
@@ -119,7 +117,6 @@
     <Compile Include="Service\HandService.cs" />
     <Compile Include="Service\PlayerService.cs" />
     <Compile Include="Service\GameService.cs" />
-    <Compile Include="HandView.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Cards\10C.png" />

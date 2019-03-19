@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UIKit;
 
 namespace ShangrilaRummy.Model
 {
@@ -13,7 +14,9 @@ namespace ShangrilaRummy.Model
         public int SeatNumber { get; set; }
         public Hand Hand { get; set; }
         public List<Hand> TableHands { get; set; }
-        public CardView CardView { get; set; }
+
+
+        public UILabel GameBoardUIControl { get; set; }
 
         public Player()
         {

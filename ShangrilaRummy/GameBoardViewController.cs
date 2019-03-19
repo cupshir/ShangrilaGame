@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using ShangrilaRummy.Model;
 using ShangrilaRummy.Service;
 using System.Linq;
+using Foundation;
 
 namespace ShangrilaRummy
 {
@@ -37,7 +38,6 @@ namespace ShangrilaRummy
 
             DrawGameBoard();
 
-
             DrawControls();
 
         }
@@ -46,8 +46,8 @@ namespace ShangrilaRummy
         {
 
             // notes
-            // width: 1024 - half: 512
-            // height: 768 - half: 384
+            // width: 1024 - half: 512 - qtr: 256 - 8th: 128 - 16th: 64
+            // height: 768 - half: 384 - qtr: 192 - 8th:  96 - 16th: 48
             //
 
             DrawDeck();
@@ -143,18 +143,52 @@ namespace ShangrilaRummy
 
         private void DrawPlayers()
         {
+            DrawPlayer();
+
             // loop through players to draw
             DrawOtherPlayers();
 
-            DrawPlayer();
         }
 
         private void DrawPlayer()
         {
-            HandView playerHand = new HandView(_game.Players[0].Hand);
 
-            View.AddSubview(playerHand);
-         
+            nfloat cardPosX = 267;
+            nfloat cardPosY = 613;
+
+            int cardNumber = 0;
+
+            foreach (var handCard in _game.Players[0].Hand.Cards)
+            {
+                UILabel card = new UILabel();
+                card.Text = handCard.ShortName;
+                card.TextAlignment = UITextAlignment.Center;
+                card.Frame = new CGRect(cardPosX, cardPosY, 50, 75);
+
+                card.BackgroundColor = UIColor.Red;
+                card.TextColor = UIColor.Blue;
+
+
+                //CardView cardView = new CardView(handCard, true);
+
+                //cardView.Frame = new CGRect(cardPosX, cardPosY, 50, 75);
+
+                View.AddSubview(card);
+
+                cardNumber++;
+
+                // move to next position
+                cardPosX += 55;
+
+                if (cardNumber == 9)
+                {
+                    // move next card cords to next line
+                    cardPosX = 267;
+                    cardPosY = 693;
+                }
+
+            }
+
         }
 
         private void DrawOtherPlayers()
@@ -162,25 +196,24 @@ namespace ShangrilaRummy
             // loop through players in game, skipping first player
             for (int i = 1; i < _game.Players.Count; i++)
             {
-                Card otherPlayerCardCount = new Card { ShortName = "Empty" };
 
-                // update Shortname to be card count if player has cards
+                if (_game.Players[i].GameBoardUIControl == null)
+                {
+                    // create new card control
+                    _game.Players[i].GameBoardUIControl = new UILabel();
+
+                    _game.Players[i].GameBoardUIControl.BackgroundColor = UIColor.Red;
+                    _game.Players[i].GameBoardUIControl.TextColor = UIColor.Green;
+                    _game.Players[i].GameBoardUIControl.Text = "Empty";
+                    _game.Players[i].GameBoardUIControl.TextAlignment = UITextAlignment.Center;
+
+                    View.AddSubview(_game.Players[i].GameBoardUIControl);
+                }
+
+
                 if (_game.Players[i].Hand.Cards != null && _game.Players[i].Hand.Cards.Count > 0)
                 {
-                    otherPlayerCardCount.ShortName = _game.Players[i].Hand.Cards.Count.ToString();
-                }
-
-                if (_game.Players[i].CardView == null)
-                {
-                    // create new card view
-                    _game.Players[i].CardView = new CardView(otherPlayerCardCount);
-
-                    View.AddSubview(_game.Players[i].CardView);
-                }
-                else 
-                {
-                    // update existing card view
-                    _game.Players[i].CardView.UpdateCard(otherPlayerCardCount.ShortName);
+                    _game.Players[i].GameBoardUIControl.Text = _game.Players[i].Hand.Cards.Count.ToString();
                 }
 
                 // Player2: 0, 192
@@ -193,22 +226,22 @@ namespace ShangrilaRummy
                 switch (_game.Players[i].SeatNumber)
                 {
                     case 2:
-                        _game.Players[i].CardView.Frame = new CGRect(0, 192, 50, 75);
+                        _game.Players[i].GameBoardUIControl.Frame = new CGRect(0, 192, 50, 75);
                         break;
                     case 3:
-                        _game.Players[i].CardView.Frame = new CGRect(0, 576, 50, 75);
+                        _game.Players[i].GameBoardUIControl.Frame = new CGRect(0, 576, 50, 75);
                         break;
                     case 4:
-                        _game.Players[i].CardView.Frame = new CGRect(256, 0, 50, 75);
+                        _game.Players[i].GameBoardUIControl.Frame = new CGRect(256, 0, 50, 75);
                         break;
                     case 5:
-                        _game.Players[i].CardView.Frame = new CGRect(718, 0, 50, 75);
+                        _game.Players[i].GameBoardUIControl.Frame = new CGRect(718, 0, 50, 75);
                         break;
                     case 6:
-                        _game.Players[i].CardView.Frame = new CGRect(974, 576, 50, 75);
+                        _game.Players[i].GameBoardUIControl.Frame = new CGRect(974, 576, 50, 75);
                         break;
                     case 7:
-                        _game.Players[i].CardView.Frame = new CGRect(974, 192, 50, 75);
+                        _game.Players[i].GameBoardUIControl.Frame = new CGRect(974, 192, 50, 75);
                         break;
                 }
             }
@@ -216,54 +249,49 @@ namespace ShangrilaRummy
 
         private void DrawDiscardPile()
         {
-
-            if(_game.DiscardPile.CardView == null) 
+            if(_game.DiscardPile.GameBoardUIControl == null) 
             {
-                // initialize new card view with Empty
-                _game.DiscardPile.CardView = new CardView(new Card() { ShortName = "Empty" });
+                // create new card control
+                _game.DiscardPile.GameBoardUIControl = new UILabel();
+                _game.DiscardPile.GameBoardUIControl.BackgroundColor = UIColor.Cyan;
+                _game.DiscardPile.GameBoardUIControl.Text = "Empty";
+                _game.DiscardPile.GameBoardUIControl.TextColor = UIColor.Blue;
+                _game.DiscardPile.GameBoardUIControl.TextAlignment = UITextAlignment.Center;
 
-                _game.DiscardPile.CardView.Frame = new CGRect(viewWidth / 2 - 55, viewHeight / 2 - 35.5, 50, 75);
+                _game.DiscardPile.GameBoardUIControl.Frame = new CGRect(viewWidth / 2 - 55, viewHeight / 2 - 35.5, 50, 75);
 
-                View.AddSubview(_game.DiscardPile.CardView);
+                View.AddSubview(_game.DiscardPile.GameBoardUIControl);
             }
 
-            if (_game.DiscardPile.Cards.Count > 0)
+            if (_game.DiscardPile.Cards != null && _game.DiscardPile.Cards.Count > 0)
             {
                 // get the top card of the discard pile
-                _game.DiscardPile.CardView.UpdateCard(_game.DiscardPile.Cards[0].ShortName);
+                _game.DiscardPile.GameBoardUIControl.Text = _game.DiscardPile.Cards[0].ShortName;
             }
         }
 
         private void DrawDeck()
         {
-            // for now draw top card in deck
-            // eventually draw game deck using DeckView
-
-            if(_game.GameDeck.CardView == null)
+            if(_game.GameDeck.GameBoardUIControl == null)
             {
-                // create new cardview with empty card
-                _game.GameDeck.CardView = new CardView(new Card() { ShortName = "Empty" });
+                // create new card control
+                _game.GameDeck.GameBoardUIControl = new UILabel();
+                _game.GameDeck.GameBoardUIControl.BackgroundColor = UIColor.Cyan;
+                _game.GameDeck.GameBoardUIControl.Text = "Empty";
+                _game.GameDeck.GameBoardUIControl.TextColor = UIColor.Black;
+                _game.GameDeck.GameBoardUIControl.TextAlignment = UITextAlignment.Center;
 
-                _game.GameDeck.CardView.Frame = new CGRect(viewWidth / 2 + 5, viewHeight / 2 - 35.5, 50, 75);
+                _game.GameDeck.GameBoardUIControl.Frame = new CGRect(viewWidth / 2 + 5, viewHeight / 2 - 35.5, 50, 75);
 
-                View.AddSubview(_game.GameDeck.CardView);
+                View.AddSubview(_game.GameDeck.GameBoardUIControl);
             }
            
             // update to top card if exists
-            if(_game.GameDeck.Cards.Count > 0)
+            if(_game.GameDeck.Cards != null && _game.GameDeck.Cards.Count > 0)
             {
                 //_game.GameDeck.CardView.Value.Text = _game.GameDeck.Cards[0].ShortName;
-                _game.GameDeck.CardView.UpdateCard(_game.GameDeck.Cards[0].ShortName);
-
+                _game.GameDeck.GameBoardUIControl.Text = _game.GameDeck.Cards[0].ShortName;
             }
-        }
-
-        public override void ViewDidLayoutSubviews()
-        {
-            base.ViewDidLayoutSubviews();
-
-            //cardView.UpdateLayout();
-            
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿namespace ShangrilaRummy.Model
+﻿using UIKit;
+
+namespace ShangrilaRummy.Model
 {
     public class Card
     {
@@ -7,6 +9,8 @@
         public string Suit { get; set; }
         public int Value { get; set; }
         public int DealValue { get; set; }
+
+        public UILabel CardUIControl { get; set; }
 
         public Card()
         {
