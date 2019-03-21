@@ -44,10 +44,20 @@ namespace ShangrilaRummy
             if (Card != null)
             {
                 cardText.Text = Card.ShortName;
+
+                if (Card.Suit == "Hearts" || Card.Suit == "Diamonds")
+                {
+                    cardText.TextColor = UIColor.Red;
+                }
+                else
+                {
+                    cardText.TextColor = UIColor.Black;
+                }
             }
             else
             {
-                cardText.Text = "Empty"; ;
+                cardText.Text = "Empty";
+                cardText.TextColor = UIColor.Black;
             }
         }
     }

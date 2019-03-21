@@ -63,6 +63,29 @@ namespace ShangrilaRummy
                 CardView newCardView = new CardView();
                 newCardView.Frame = new CGRect(phCardViewPosX, phCardViewPosY, 50, 75);
 
+                // Create a new tap gesture
+                UITapGestureRecognizer tapGesture = null;
+
+                // Report touch
+                Action action = () => {
+
+                    if ( newCardView.Card != null && _game.Players[0].Hand.Cards.Count > 11)
+                    {
+                        // move dicard top card in players hand
+                        _game = GameService.DiscardCard(_game, 0, newCardView.Card);
+
+                        DrawGameBoard();
+                    }
+                };
+
+                tapGesture = new UITapGestureRecognizer(action);
+
+                // Configure it
+                tapGesture.NumberOfTapsRequired = 2;
+
+                // Add the gesture recognizer to the view
+                newCardView.AddGestureRecognizer(tapGesture);
+
                 PlayerHandCardViews.Add(newCardView);
 
                 View.AddSubview(newCardView);
@@ -94,7 +117,7 @@ namespace ShangrilaRummy
             // height: 768 - half: 384 - qtr: 192 - 8th:  96 - 16th: 48
             //
 
-            DrawDeck();
+            DrawGameDeck();
 
             DrawDiscardPile();
 
@@ -114,24 +137,6 @@ namespace ShangrilaRummy
             shuffleUIButton.BackgroundColor = UIColor.White;
             shuffleUIButton.SetTitle("Shuffle", UIControlState.Normal);
 
-            UIButton drawUIButton = UIButton.FromType(UIButtonType.RoundedRect);
-            drawUIButton.Frame = new CGRect(viewWidth / 2 + 5, viewHeight / 2 + 45.5, 50, 25);
-            drawUIButton.BackgroundColor = UIColor.White;
-            drawUIButton.SetTitle("Draw", UIControlState.Normal);
-            drawUIButton.Hidden = true;
-
-            UIButton drawDiscardUIButton = UIButton.FromType(UIButtonType.RoundedRect);
-            drawDiscardUIButton.Frame = new CGRect(viewWidth / 2 - 55, viewHeight / 2 + 45.5, 50, 25);
-            drawDiscardUIButton.BackgroundColor = UIColor.White;
-            drawDiscardUIButton.SetTitle("Draw D", UIControlState.Normal);
-            drawDiscardUIButton.Hidden = true;
-
-            UIButton drawDiscardTestUIButton = UIButton.FromType(UIButtonType.RoundedRect);
-            drawDiscardTestUIButton.Frame = new CGRect(viewWidth / 2 - 55, viewHeight / 2 - 70.5, 50, 25);
-            drawDiscardTestUIButton.BackgroundColor = UIColor.White;
-            drawDiscardTestUIButton.SetTitle("T Dis", UIControlState.Normal);
-            drawDiscardTestUIButton.Hidden = true;
-
             dealUIButton.TouchUpInside += (sender, e) => {
                 _game = GameService.Deal(_game);
 
@@ -139,29 +144,6 @@ namespace ShangrilaRummy
 
                 dealUIButton.Hidden = true;
                 shuffleUIButton.Hidden = true;
-                drawUIButton.Hidden = false;
-                drawDiscardUIButton.Hidden = false;
-                drawDiscardTestUIButton.Hidden = false;
-            };
-
-            drawUIButton.TouchUpInside += (sender, e) => {
-                // ensure cards in deck
-                if (_game.GameDeck.Cards.Count > 0)
-                {
-                    _game = GameService.DrawCard(_game, 1);
-
-                    if (_game.Players[0].Hand.Cards.Count >= 18)
-                    {
-                        drawUIButton.Hidden = true;
-                    }
-
-                    DrawGameBoard();
-                }
-                else
-                {
-                    // add message about no cards
-                }
-
             };
 
             shuffleUIButton.TouchUpInside += (sender, e) => {
@@ -176,37 +158,8 @@ namespace ShangrilaRummy
                 }
             };
 
-            drawDiscardUIButton.TouchUpInside += (sender, e) => {
-                // ensure cards in discard pile
-                if (_game.DiscardPile.Cards.Count > 0) 
-                {
-                    _game = GameService.DrawDiscardCard(_game, 1);
-
-                    DrawGameBoard();
-                }
-                else
-                {
-                    // add message about no cards
-                }
-
-            };
-
-            drawDiscardTestUIButton.TouchUpInside += (sender, e) => { 
-                // this is just a test button for dev work
-                if ( _game.Players[0].Hand.Cards.Count > 0)
-                {
-                    // move dicard top card in players hand
-                    _game = GameService.DiscardCard(_game, 0, _game.Players[0].Hand.Cards[0]);
-
-                    DrawGameBoard();
-                }
-            };
-
             View.AddSubview(dealUIButton);
             View.AddSubview(shuffleUIButton);
-            View.AddSubview(drawUIButton);
-            View.AddSubview(drawDiscardUIButton);
-            View.AddSubview(drawDiscardTestUIButton);
         }
 
         private void DrawPlayers()
@@ -239,62 +192,6 @@ namespace ShangrilaRummy
                 }
             }
 
-            //for (int i = 0; i < _game.Players[0].Hand.Cards.Count; i++)
-            //{
-            //    if ( _game.Players[0].Hand.Cards[i] != null)
-            //    {
-            //        PlayerHandCardViews[i].SetCard(_game.Players[0].Hand.Cards[i]);
-            //    }
-            //    else
-            //    {
-            //        PlayerHandCardViews[i].SetCard(null);
-            //    }
-            //}
-
-
-
-            //int cardNumber = 0;
-            //if(_game.Players[0].Hand.Cards != null && _game.Players[0].Hand.Cards.Count > 0)
-            //{
-            //    for (int i = 0; i < _game.Players[0].Hand.Cards.Count; i++)
-            //    {
-            //        if (_game.Players[0].Hand.Cards[i].CardUIControl == null)
-            //        {
-            //            // if control doesnt exist create a new one
-            //            _game.Players[0].Hand.Cards[i].CardUIControl = new UILabel();
-            //            _game.Players[0].Hand.Cards[i].CardUIControl.BackgroundColor = UIColor.Orange;
-            //            _game.Players[0].Hand.Cards[i].CardUIControl.TextColor = UIColor.Black;
-            //            _game.Players[0].Hand.Cards[i].CardUIControl.TextAlignment = UITextAlignment.Center;
-            //            _game.Players[0].Hand.Cards[i].CardUIControl.Text = _game.Players[0].Hand.Cards[i].ShortName;
-
-            //            UIPanGestureRecognizer gesture = new UIPanGestureRecognizer();
-
-            //            gesture.AddTarget(() => HandleDrag(gesture));
-
-
-            //            View.AddSubview(_game.Players[0].Hand.Cards[i].CardUIControl);
-
-            //            _game.Players[0].Hand.Cards[i].CardUIControl.AddGestureRecognizer(gesture);
-
-            //            _game.Players[0].Hand.Cards[i].CardUIControl.UserInteractionEnabled = true;
-
-            //        }
-
-            //        _game.Players[0].Hand.Cards[i].CardUIControl.Frame = new CGRect(cardPosX, cardPosY, 50, 75);
-
-            //        cardNumber++;
-
-            //        // move to next position
-            //        cardPosX += 55;
-
-            //        if (cardNumber == 9)
-            //        {
-            //            // move next card cords to next line
-            //            cardPosX = 267;
-            //            cardPosY = 693;
-            //        }
-            //    }
-            //}
         }
 
 
@@ -359,92 +256,124 @@ namespace ShangrilaRummy
         {
             if (DiscardPileCardView == null)
             {
+                // create a new card view for dicard pile
                 DiscardPileCardView = new CardView();
 
                 DiscardPileCardView.Frame = new CGRect(viewWidth / 2 - 55, viewHeight / 2 - 35.5, 50, 75);
+
+                // Create a new tap gesture
+                UITapGestureRecognizer tapGesture = null;
+
+                // Report touch
+                Action action = () => {
+
+                    // ensure cards in discard pile
+                    if (_game.DiscardPile.Cards.Count > 0 && _game.Players[0].Hand.Cards.Count > 10 && _game.Players[0].Hand.Cards.Count < 18)
+                    {
+                        _game = GameService.DrawDiscardCard(_game, 1);
+
+                        DrawGameBoard();
+                    }
+                    else
+                    {
+                        // add message about no cards
+                    }
+
+                };
+
+                tapGesture = new UITapGestureRecognizer(action);
+
+                // Configure it
+                tapGesture.NumberOfTapsRequired = 2;
+
+                // Add the gesture recognizer to the view
+                DiscardPileCardView.AddGestureRecognizer(tapGesture);
 
                 View.AddSubview(DiscardPileCardView);
             }
             else
             {
+                // update discard pile
                 if ( _game.DiscardPile.Cards.Count > 0)
                 {
+                    // always show the newest card discarded
                     int bottomCardIndex = _game.DiscardPile.Cards.Count - 1;
 
                     DiscardPileCardView.SetCard(_game.DiscardPile.Cards[bottomCardIndex]);
                 }
+                else
+                {
+                    // discard pile empty
+                    DiscardPileCardView.SetCard(null);
+                }
             }
-
-
-
-            //if(_game.DiscardPile.GameBoardUIControl == null) 
-            //{
-            // create new card control
-            //_game.DiscardPile.GameBoardUIControl = new UILabel();
-            //_game.DiscardPile.GameBoardUIControl.BackgroundColor = UIColor.Cyan;
-            //_game.DiscardPile.GameBoardUIControl.Text = "Empty";
-            //_game.DiscardPile.GameBoardUIControl.TextColor = UIColor.Blue;
-            //_game.DiscardPile.GameBoardUIControl.TextAlignment = UITextAlignment.Center;
-
-            //_game.DiscardPile.GameBoardUIControl.Frame = new CGRect(viewWidth / 2 - 55, viewHeight / 2 - 35.5, 50, 75);
-
-            //View.AddSubview(_game.DiscardPile.GameBoardUIControl);
-            //}
-
-            //if (_game.DiscardPile.Cards != null && _game.DiscardPile.Cards.Count > 0)
-            //{
-            // get the top card of the discard pile
-            //_game.DiscardPile.GameBoardUIControl.Text = _game.DiscardPile.Cards[0].ShortName;
-            //}
         }
 
-        private void DrawDeck()
+
+        private void DrawGameDeck()
         {
             if (GameDeckCardView == null)
             {
+                // create a new card view for game deck
                 GameDeckCardView = new CardView();
 
                 GameDeckCardView.Frame = new CGRect(viewWidth / 2 + 5, viewHeight / 2 - 35.5, 50, 75);
+
+                // Create a new tap gesture
+                UITapGestureRecognizer tapGesture = null;
+
+                // Report touch
+                Action action = () => {
+
+                    // ensure cards in deck
+                    if (_game.GameDeck.Cards.Count > 0 && _game.Players[0].Hand.Cards.Count > 10 && _game.Players[0].Hand.Cards.Count < 18)
+                    {
+                        _game = GameService.DrawCard(_game, 1);
+
+                        DrawGameBoard();
+                    }
+                    else
+                    {
+                        // add message about no cards
+                    }
+
+                };
+
+                tapGesture = new UITapGestureRecognizer(action);
+
+                // Configure it
+                tapGesture.NumberOfTapsRequired = 2;
+
+                // Add the gesture recognizer to the view
+                GameDeckCardView.AddGestureRecognizer(tapGesture);
+
+
 
                 View.AddSubview(GameDeckCardView);
             }
             else
             {
+                // update the game deck
                 if ( _game.GameDeck.Cards.Count >0)
                 {
                     // for now show top card, eventually just show flipped over card
                     GameDeckCardView.SetCard(_game.GameDeck.Cards[0]);
                 }
+                else
+                {
+                    // deck empty
+                    GameDeckCardView.SetCard(null);
+                }
             }
 
-
-            //if(_game.GameDeck.GameBoardUIControl == null)
-            //{
-            //    // create new card control
-            //    _game.GameDeck.GameBoardUIControl = new UILabel();
-            //    _game.GameDeck.GameBoardUIControl.BackgroundColor = UIColor.Cyan;
-            //    _game.GameDeck.GameBoardUIControl.Text = "Empty";
-            //    _game.GameDeck.GameBoardUIControl.TextColor = UIColor.Black;
-            //    _game.GameDeck.GameBoardUIControl.TextAlignment = UITextAlignment.Center;
-
-            //    _game.GameDeck.GameBoardUIControl.Frame = new CGRect(viewWidth / 2 + 5, viewHeight / 2 - 35.5, 50, 75);
-
-            //    View.AddSubview(_game.GameDeck.GameBoardUIControl);
-            //}
-
-            //// update to top card if exists
-            //if(_game.GameDeck.Cards != null && _game.GameDeck.Cards.Count > 0)
-            //{
-            //    //_game.GameDeck.CardView.Value.Text = _game.GameDeck.Cards[0].ShortName;
-            //    _game.GameDeck.GameBoardUIControl.Text = _game.GameDeck.Cards[0].ShortName;
-            //}
         }
 
         private void HandleDrag(UIPanGestureRecognizer recognizer)
         {
-            //CGRect originalFrame = CGRect.Empty;
 
-            ////UILabel labelDragged = View.Subviews
+
+
+            //CGRect originalFrame = CGRect.Empty;
 
             //if(recognizer.State == UIGestureRecognizerState.Began)
             //{
