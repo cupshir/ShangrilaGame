@@ -18,6 +18,10 @@ namespace ShangrilaRummy
             cardText.Text = "Empty";
 
             cardText.TextColor = UIColor.Black;
+
+            this.Layer.BorderColor = UIColor.Blue.CGColor;
+            this.Layer.BorderWidth = 1;
+
             cardText.SizeToFit();
 
 

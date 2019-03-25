@@ -15,9 +15,6 @@ namespace ShangrilaRummy.Model
         public Hand Hand { get; set; }
         public List<Hand> TableHands { get; set; }
 
-
-        public UILabel GameBoardUIControl { get; set; }
-
         public Player()
         {
         }

@@ -118,6 +118,7 @@
     <Compile Include="Service\PlayerService.cs" />
     <Compile Include="Service\GameService.cs" />
     <Compile Include="CardView.cs" />
+    <Compile Include="CardGroupView.cs" />
   </ItemGroup>
   <ItemGroup>
     <BundleResource Include="Resources\Cards\10C.png" />

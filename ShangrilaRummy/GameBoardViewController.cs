@@ -16,20 +16,22 @@ namespace ShangrilaRummy
         nfloat viewWidth;
         nfloat viewHeight;
 
-        // recreate the cardview class that has a pointer to a card
-        //   create a SetCard method for setting/changing the pointer
-
-        // gameboard view controller
-        // create a cardview list object
-        // create 17 player hand card views and add them to the list
-        //    each cardView index will be 1 to 1 with the index of the player hand
-        //    each cardview will display empty placeholder if no card pointer is set
-
 
         CardView GameDeckCardView;
         CardView DiscardPileCardView;
 
         List<CardView> PlayerHandCardViews;
+
+        // probably temporary
+        List<UILabel> OtherPlayersCardViews;
+
+        List<CardGroupView> Player1TableCardGroups;
+        List<CardGroupView> Player2TableCardGroups;
+        List<CardGroupView> Player3TableCardGroups;
+        List<CardGroupView> Player4TableCardGroups;
+        List<CardGroupView> Player5TableCardGroups;
+        List<CardGroupView> Player6TableCardGroups;
+        List<CardGroupView> Player7TableCardGroups;
 
         public GameBoardViewController()
         {
@@ -49,6 +51,230 @@ namespace ShangrilaRummy
             viewWidth = UIScreen.MainScreen.Bounds.Width;
             viewHeight = UIScreen.MainScreen.Bounds.Height;
 
+
+            // initialize player hand card view
+            InitializePlayerHandCardViews();
+
+            InitializeOtherPlayersCardViews();
+
+            InitializePlayerTableCardGroups();
+
+            _game = GameService.CreateGame( GameService.CreateTestPlayers(), 3 );
+
+            DrawGameBoard();
+
+            DrawControls();
+
+        }
+
+        private void InitializePlayerTableCardGroups()
+        {
+            // Player2: 0, 192
+            // Player3: 0, 576
+            // Player4: 256 ,0
+            // Player5: 768 ,0
+            // Player6: 576, 974
+            // Player7: 192, 974
+
+            Player1TableCardGroups = InitializeTableCardGroups(1);
+            Player2TableCardGroups = InitializeTableCardGroups(2);
+            Player3TableCardGroups = InitializeTableCardGroups(3);
+            Player4TableCardGroups = InitializeTableCardGroups(4);
+            Player5TableCardGroups = InitializeTableCardGroups(5);
+            Player6TableCardGroups = InitializeTableCardGroups(6);
+            Player7TableCardGroups = InitializeTableCardGroups(7);
+
+        }
+
+        private List<CardGroupView> InitializeTableCardGroups(int playerNumber)
+        {
+            List<CardGroupView> playerTableCardGroups = new List<CardGroupView>();
+
+            for (int i = 0; i < 4; i++)
+            {
+                playerTableCardGroups.Add(new CardGroupView());
+
+                Card emptyCard = new Card();
+
+                playerTableCardGroups[i].AddCardToGroup(emptyCard);
+
+                CGRect cGRect = GetCGRectForTableCardGroup(playerNumber, i);
+
+                if (cGRect != CGRect.Empty)
+                {
+                    playerTableCardGroups[i].Frame = cGRect;
+
+                    View.AddSubview(playerTableCardGroups[i]);
+                }
+            }
+
+            return playerTableCardGroups;
+        }
+
+        private CGRect GetCGRectForTableCardGroup(int playerNumber, int i)
+        {
+            CGRect cGRect = new CGRect();
+
+            string switchValue = playerNumber.ToString() + "." + i.ToString();
+
+            switch (switchValue)
+            {
+                // Player2: 5, 423
+                case "1.0":
+                    cGRect = new CGRect(261, 448, 5, 75);
+                    break;
+                case "1.1":
+                    cGRect = new CGRect(261, 528, 5, 75);
+                    break;
+                case "1.2":
+                    cGRect = new CGRect(517, 448, 5, 75);
+                    break;
+                case "1.3":
+                    cGRect = new CGRect(517, 528, 5, 75);
+                    break;
+                // Player2: 5, 423
+                case "2.0":
+                    cGRect = new CGRect(5, 448, 5, 75);
+                    break;
+                case "2.1":
+                    cGRect = new CGRect(5, 528, 5, 75);
+                    break;
+                case "2.2":
+                    cGRect = new CGRect(5, 608, 5, 75);
+                    break;
+                case "2.3":
+                    cGRect = new CGRect(5, 688, 5, 75);
+                    break;
+                // Player3: 5, 30
+                case "3.0":
+                    cGRect = new CGRect(5, 55, 5, 75);
+                    break;
+                case "3.1":
+                    cGRect = new CGRect(5, 135, 5, 75);
+                    break;
+                case "3.2":
+                    cGRect = new CGRect(5, 215, 5, 75);
+                    break;
+                case "3.3":
+                    cGRect = new CGRect(5, 295, 5, 75);
+                    break;
+                // Player4: 261, 30
+                case "4.0":
+                    cGRect = new CGRect(261, 55, 5, 75);
+                    break;
+                case "4.1":
+                    cGRect = new CGRect(261, 135, 5, 75);
+                    break;
+                case "4.2":
+                    cGRect = new CGRect(261, 215, 5, 75);
+                    break;
+                case "4.3":
+                    cGRect = new CGRect(261, 295, 5, 75);
+                    break;
+                // Player5: 517, 30
+                case "5.0":
+                    cGRect = new CGRect(517, 55, 5, 75);
+                    break;
+                case "5.1":
+                    cGRect = new CGRect(517, 135, 5, 75);
+                    break;
+                case "5.2":
+                    cGRect = new CGRect(517, 215, 5, 75);
+                    break;
+                case "5.3":
+                    cGRect = new CGRect(517, 295, 5, 75);
+                    break;
+                // Player6: 761, 30
+                case "6.0":
+                    cGRect = new CGRect(761, 55, 5, 75);
+                    break;
+                case "6.1":
+                    cGRect = new CGRect(761, 135, 5, 75);
+                    break;
+                case "6.2":
+                    cGRect = new CGRect(761, 215, 5, 75);
+                    break;
+                case "6.3":
+                    cGRect = new CGRect(761, 295, 5, 75);
+                    break;
+                // Player7: 761, 423
+                case "7.0":
+                    cGRect = new CGRect(761, 448, 5, 75);
+                    break;
+                case "7.1":
+                    cGRect = new CGRect(761, 528, 5, 75);
+                    break;
+                case "7.2":
+                    cGRect = new CGRect(761, 608, 5, 75);
+                    break;
+                case "7.3":
+                    cGRect = new CGRect(761, 688, 5, 75);
+                    break;
+                default:
+                    break;
+            }
+
+            return cGRect;
+        }
+
+        private void InitializeOtherPlayersCardViews()
+        {
+            //OtherPlayersCardViews = new List<CardView>();
+
+            OtherPlayersCardViews = new List<UILabel>();
+
+            for (int i = 2; i < 8; i++)
+            {
+//                CardView newCardView = new CardView();
+
+                UILabel uILabel = new UILabel();
+                uILabel.Text = "P" + i.ToString();
+                uILabel.BackgroundColor = UIColor.White;
+
+                CGRect cGRect = new CGRect();
+
+                // Player2: 5, 423
+                // Player3: 5, 30
+                // Player4: 261, 30
+                // Player5: 517, 30
+                // Player6: 761, 30
+                // Player7: 761, 423
+
+                switch (i)
+                {
+                    case 2:
+                        cGRect = new CGRect(5, 423, 100, 20);
+                        break;
+                    case 3:
+                        cGRect = new CGRect(5, 30, 100, 20);
+                        break;
+                    case 4:
+                        cGRect = new CGRect(261, 30, 100, 20);
+                        break;
+                    case 5:
+                        cGRect = new CGRect(517, 30, 100, 20);
+                        break;
+                    case 6:
+                        cGRect = new CGRect(761, 30, 100, 20);
+                        break;
+                    case 7:
+                        cGRect = new CGRect(761, 423, 100, 20);
+                        break;
+                }
+
+                if ( cGRect != CGRect.Empty)
+                {
+                    uILabel.Frame = cGRect;
+
+                    OtherPlayersCardViews.Add(uILabel);
+                    View.AddSubview(uILabel);
+                }
+
+            }
+        }
+
+        private void InitializePlayerHandCardViews()
+        {
             PlayerHandCardViews = new List<CardView>();
 
             nfloat phCardViewPosX = 267;
@@ -69,9 +295,9 @@ namespace ShangrilaRummy
                 // Report touch
                 Action action = () => {
 
-                    if ( newCardView.Card != null && _game.Players[0].Hand.Cards.Count > 11)
+                    if (newCardView.Card != null && _game.Players[0].Hand.Cards.Count > 11)
                     {
-                        // move dicard top card in players hand
+                        // move card from cardView from player hand to discard pile
                         _game = GameService.DiscardCard(_game, 0, newCardView.Card);
 
                         DrawGameBoard();
@@ -101,12 +327,6 @@ namespace ShangrilaRummy
                 }
             }
 
-            _game = GameService.CreateGame( GameService.CreateTestPlayers(), 3 );
-
-            DrawGameBoard();
-
-            DrawControls();
-
         }
 
         private void DrawGameBoard()
@@ -128,14 +348,25 @@ namespace ShangrilaRummy
         private void DrawControls()
         {
             UIButton dealUIButton = UIButton.FromType(UIButtonType.RoundedRect);
-            dealUIButton.Frame = new CGRect(viewWidth / 2 - 55, viewHeight / 2 - 70.5, 50, 25);
+            dealUIButton.Frame = new CGRect(60, 390, 50, 25);
             dealUIButton.BackgroundColor = UIColor.White;
             dealUIButton.SetTitle("Deal", UIControlState.Normal);
 
             UIButton shuffleUIButton = UIButton.FromType(UIButtonType.RoundedRect);
-            shuffleUIButton.Frame = new CGRect(viewWidth / 2 + 5, viewHeight / 2 - 70.5, 50, 25);
+            shuffleUIButton.Frame = new CGRect(5, 390, 50, 25);
             shuffleUIButton.BackgroundColor = UIColor.White;
             shuffleUIButton.SetTitle("Shuffle", UIControlState.Normal);
+
+            UIButton devTestButton = UIButton.FromType(UIButtonType.RoundedRect);
+            devTestButton.Frame = new CGRect(115, 390, 50, 25);
+            devTestButton.BackgroundColor = UIColor.White;
+            devTestButton.SetTitle("Dev", UIControlState.Normal);
+
+            devTestButton.TouchUpInside += (sender, e) => {
+
+                AddDevCardsToTableHands();
+
+            };
 
             dealUIButton.TouchUpInside += (sender, e) => {
                 _game = GameService.Deal(_game);
@@ -158,8 +389,97 @@ namespace ShangrilaRummy
                 }
             };
 
+            View.AddSubview(devTestButton);
             View.AddSubview(dealUIButton);
             View.AddSubview(shuffleUIButton);
+        }
+
+        private void AddDevCardsToTableHands()
+        {
+            for (int i = 0; i < Player1TableCardGroups.Count; i++)
+            {
+                for (int h = 0; h < 4; h++)
+                {
+                    Card testCard = new Card();
+                    testCard.ShortName = h.ToString();
+
+                    Player1TableCardGroups[i].AddCardToGroup(testCard);
+
+
+                }
+            }
+            for (int i = 0; i < Player2TableCardGroups.Count; i++)
+            {
+                for (int h = 0; h < 4; h++)
+                {
+                    Card testCard = new Card();
+                    testCard.ShortName = h.ToString();
+
+                    Player2TableCardGroups[i].AddCardToGroup(testCard);
+
+
+                }
+            }
+            for (int i = 0; i < Player3TableCardGroups.Count; i++)
+            {
+                for (int h = 0; h < 4; h++)
+                {
+                    Card testCard = new Card();
+                    testCard.ShortName = h.ToString();
+
+                    Player3TableCardGroups[i].AddCardToGroup(testCard);
+
+
+                }
+            }
+            for (int i = 0; i < Player4TableCardGroups.Count; i++)
+            {
+                for (int h = 0; h < 4; h++)
+                {
+                    Card testCard = new Card();
+                    testCard.ShortName = h.ToString();
+
+                    Player4TableCardGroups[i].AddCardToGroup(testCard);
+
+
+                }
+            }
+            for (int i = 0; i < Player5TableCardGroups.Count; i++)
+            {
+                for (int h = 0; h < 4; h++)
+                {
+                    Card testCard = new Card();
+                    testCard.ShortName = h.ToString();
+
+                    Player5TableCardGroups[i].AddCardToGroup(testCard);
+
+
+                }
+            }
+            for (int i = 0; i < Player6TableCardGroups.Count; i++)
+            {
+                for (int h = 0; h < 4; h++)
+                {
+                    Card testCard = new Card();
+                    testCard.ShortName = h.ToString();
+
+                    Player6TableCardGroups[i].AddCardToGroup(testCard);
+
+
+                }
+            }
+            for (int i = 0; i < Player7TableCardGroups.Count; i++)
+            {
+                for (int h = 0; h < 4; h++)
+                {
+                    Card testCard = new Card();
+                    testCard.ShortName = h.ToString();
+
+                    Player7TableCardGroups[i].AddCardToGroup(testCard);
+
+
+                }
+            }
         }
 
         private void DrawPlayers()
@@ -196,61 +516,10 @@ namespace ShangrilaRummy
 
 
 
-        //private void DrawOtherPlayers()
-        //{
-        //    // loop through players in game, skipping first player
-        //    for (int i = 1; i < _game.Players.Count; i++)
-        //    {
+        private void DrawOtherPlayers()
+        {
 
-        //        if (_game.Players[i].GameBoardUIControl == null)
-        //        {
-        //            // create new card control
-        //            _game.Players[i].GameBoardUIControl = new UILabel();
-
-        //            _game.Players[i].GameBoardUIControl.BackgroundColor = UIColor.Red;
-        //            _game.Players[i].GameBoardUIControl.TextColor = UIColor.Green;
-        //            _game.Players[i].GameBoardUIControl.Text = "Empty";
-        //            _game.Players[i].GameBoardUIControl.TextAlignment = UITextAlignment.Center;
-
-        //            View.AddSubview(_game.Players[i].GameBoardUIControl);
-        //        }
-
-
-        //        if (_game.Players[i].Hand.Cards != null && _game.Players[i].Hand.Cards.Count > 0)
-        //        {
-        //            _game.Players[i].GameBoardUIControl.Text = _game.Players[i].Hand.Cards.Count.ToString();
-        //        }
-
-        //        // Player2: 0, 192
-        //        // Player3: 0, 576
-        //        // Player4: 256 ,0
-        //        // Player5: 768 ,0
-        //        // Player6: 576, 974
-        //        // Player7: 192, 974
-
-        //        switch (_game.Players[i].SeatNumber)
-        //        {
-        //            case 2:
-        //                _game.Players[i].GameBoardUIControl.Frame = new CGRect(0, 192, 50, 75);
-        //                break;
-        //            case 3:
-        //                _game.Players[i].GameBoardUIControl.Frame = new CGRect(0, 576, 50, 75);
-        //                break;
-        //            case 4:
-        //                _game.Players[i].GameBoardUIControl.Frame = new CGRect(256, 0, 50, 75);
-        //                break;
-        //            case 5:
-        //                _game.Players[i].GameBoardUIControl.Frame = new CGRect(718, 0, 50, 75);
-        //                break;
-        //            case 6:
-        //                _game.Players[i].GameBoardUIControl.Frame = new CGRect(974, 576, 50, 75);
-        //                break;
-        //            case 7:
-        //                _game.Players[i].GameBoardUIControl.Frame = new CGRect(974, 192, 50, 75);
-        //                break;
-        //        }
-        //    }
-        //}
+        }
 
         private void DrawDiscardPile()
         {
@@ -259,7 +528,7 @@ namespace ShangrilaRummy
                 // create a new card view for dicard pile
                 DiscardPileCardView = new CardView();
 
-                DiscardPileCardView.Frame = new CGRect(viewWidth / 2 - 55, viewHeight / 2 - 35.5, 50, 75);
+                DiscardPileCardView.Frame = new CGRect(261, 390, 50, 50);
 
                 // Create a new tap gesture
                 UITapGestureRecognizer tapGesture = null;
@@ -317,7 +586,7 @@ namespace ShangrilaRummy
                 // create a new card view for game deck
                 GameDeckCardView = new CardView();
 
-                GameDeckCardView.Frame = new CGRect(viewWidth / 2 + 5, viewHeight / 2 - 35.5, 50, 75);
+                GameDeckCardView.Frame = new CGRect(316, 390, 50, 50);
 
                 // Create a new tap gesture
                 UITapGestureRecognizer tapGesture = null;
@@ -365,35 +634,6 @@ namespace ShangrilaRummy
                     GameDeckCardView.SetCard(null);
                 }
             }
-
-        }
-
-        private void HandleDrag(UIPanGestureRecognizer recognizer)
-        {
-
-
-
-            //CGRect originalFrame = CGRect.Empty;
-
-            //if(recognizer.State == UIGestureRecognizerState.Began)
-            //{
-            //    // set postion at start of drag
-            //    originalFrame = recognizer.View.Frame;
-            //}
-
-            //if(recognizer.State != (UIGestureRecognizerState.Cancelled | UIGestureRecognizerState.Failed | UIGestureRecognizerState.Possible))
-            //{
-            //    // move the image
-            //    CGPoint offset = recognizer.TranslationInView(recognizer.View);
-            //    CGRect newFrame = originalFrame;
-            //    newFrame.Offset(offset.X, offset.Y);
-            //    recognizer.View.Frame = newFrame;
-            //}
-
-            //if(recognizer.State == UIGestureRecognizerState.Ended)
-            //{
-            //    CGRect temp = CGRect.Empty;
-            //}
         }
     }
 }

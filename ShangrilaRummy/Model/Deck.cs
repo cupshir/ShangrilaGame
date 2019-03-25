@@ -8,9 +8,6 @@ namespace ShangrilaRummy.Model
         public List<Card> Cards { get; set; }
         public int NumberOfDecks { get; set; }
 
-        // better way?
-        public UILabel GameBoardUIControl { get; set; }
-
         public Deck()
         {
         }

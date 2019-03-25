@@ -10,8 +10,6 @@ namespace ShangrilaRummy.Model
         public int Value { get; set; }
         public int DealValue { get; set; }
 
-        public UILabel CardUIControl { get; set; }
-
         public Card()
         {
         }
