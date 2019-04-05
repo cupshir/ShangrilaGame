@@ -193,11 +193,13 @@ namespace ShangrilaRummy.Service
         }
 
 
-        public static Game DiscardCard(Game game, int playerIndex, Card card)
+        public static Game DiscardCard(Game game, int player, Card card)
         {
-
             // add card to discard pile
             game.DiscardPile.Cards.Add(card);
+
+            // set playerIndex (index is 1 less then player number)
+            int playerIndex = player - 1;
 
             // remove card from player hand
             game.Players[playerIndex].Hand.Cards.Remove(card);
@@ -205,19 +207,16 @@ namespace ShangrilaRummy.Service
             return game;
         }
 
-        public static Game MoveCardToTable(Game game, int player, int card, int tableHand)
+        public static Game MoveCardToTable(Game game, int player, Card card, int tableHandIndex)
         {
             // player index (1 less then player number)
             int playerIndex = player - 1;
 
-            // Get card to move
-            Card moveCard = game.Players[playerIndex].Hand.Cards[(card - 1)];
-
             // remove card from player hand
-            game.Players[playerIndex].Hand.Cards.Remove(moveCard);
+            game.Players[playerIndex].Hand.Cards.Remove(card);
 
             // add card to table
-            game.Players[playerIndex].TableHands[tableHand - 1].Cards.Add(moveCard);
+            game.Players[playerIndex].TableHands[tableHandIndex].Cards.Add(card);
 
             return game;
         }
@@ -406,44 +405,40 @@ namespace ShangrilaRummy.Service
         // Remove when done testing, only used for testing
         public static List<Player> CreateTestPlayers()
         {
-            Player player1 = PlayerService.CreatePlayer("Christopher", 1);
+            Player player1 = CreateTestPlayer(PlayerService.CreatePlayer("Player1", 1));
             player1.IsDealer = true;
-            player1.SeatNumber = 1;
-            player1.Hand.Cards = new List<Card>();
-            Player player2 = PlayerService.CreatePlayer("Player2", 2);
-            player2.SeatNumber = 2;
-            player2.Hand.Cards = new List<Card>();
-            Player player3 = PlayerService.CreatePlayer("Player3", 3);
-            player3.SeatNumber = 3;
-            player3.Hand.Cards = new List<Card>();
 
-            Player player4 = PlayerService.CreatePlayer("Player4", 4);
-            player4.SeatNumber = 4;
-            player4.Hand.Cards = new List<Card>();
+            Player player2 = CreateTestPlayer(PlayerService.CreatePlayer("Player2", 2));
+            Player player3 = CreateTestPlayer(PlayerService.CreatePlayer("Player3", 3));
+            Player player4 = CreateTestPlayer(PlayerService.CreatePlayer("Player4", 4));
+            Player player5 = CreateTestPlayer(PlayerService.CreatePlayer("Player5", 5));
+            Player player6 = CreateTestPlayer(PlayerService.CreatePlayer("Player6", 6));
+            Player player7 = CreateTestPlayer(PlayerService.CreatePlayer("Player7", 7));
 
-            Player player5 = PlayerService.CreatePlayer("Player5", 5);
-            player5.SeatNumber = 5;
-            player5.Hand.Cards = new List<Card>();
-
-            Player player6 = PlayerService.CreatePlayer("Player6", 6);
-            player6.SeatNumber = 6;
-            player6.Hand.Cards = new List<Card>();
-
-            Player player7 = PlayerService.CreatePlayer("Player7", 7);
-            player7.SeatNumber = 7;
-            player7.Hand.Cards = new List<Card>();
-
-
-            List<Player> players = new List<Player>();
-            players.Add(player1);
-            players.Add(player2);
-            players.Add(player3);
-            players.Add(player4);
-            players.Add(player5);
-            players.Add(player6);
-            players.Add(player7);
+            List<Player> players = new List<Player>
+            {
+                player1,
+                player2,
+                player3,
+                player4,
+                player5,
+                player6,
+                player7
+            };
 
             return players;
+        }
+
+        private static Player CreateTestPlayer(Player player)
+        { 
+            player.Hand.Cards = new List<Card>();
+
+            for (int i = 0; i < 4; i++)
+            {
+                player.TableHands[i].Cards = new List<Card>();
+            }
+
+            return player;
         }
     }
 }

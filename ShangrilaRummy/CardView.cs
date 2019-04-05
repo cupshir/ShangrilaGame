@@ -7,6 +7,7 @@ namespace ShangrilaRummy
     public class CardView : UIView
     {
         public Card Card;
+        public bool IsSelected;
 
         UILabel cardText;
 
@@ -14,16 +15,16 @@ namespace ShangrilaRummy
         {
             BackgroundColor = UIColor.White;
 
-            cardText = new UILabel();
-            cardText.Text = "Empty";
-
-            cardText.TextColor = UIColor.Black;
+            cardText = new UILabel
+            {
+                Text = "Empty",
+                TextColor = UIColor.Black
+            };
 
             this.Layer.BorderColor = UIColor.Blue.CGColor;
             this.Layer.BorderWidth = 1;
 
             cardText.SizeToFit();
-
 
             AddSubview(cardText); 
         }
@@ -36,8 +37,23 @@ namespace ShangrilaRummy
             }
             else
             {
-                Card = null;
-                cardText.Text = "Empty";
+                ResetCard();
+
+
+            }
+
+            UpdateCardView();
+        }
+
+        public void ToggleSelection(bool selection)
+        {
+            if (selection)
+            {
+                IsSelected = true;
+            }
+            else
+            {
+                IsSelected = false;
             }
 
             UpdateCardView();
@@ -49,20 +65,39 @@ namespace ShangrilaRummy
             {
                 cardText.Text = Card.ShortName;
 
-                if (Card.Suit == "Hearts" || Card.Suit == "Diamonds")
+                if ( IsSelected )
                 {
-                    cardText.TextColor = UIColor.Red;
+                    cardText.BackgroundColor = UIColor.Red;
+
+                    cardText.TextColor = UIColor.White;
                 }
                 else
                 {
-                    cardText.TextColor = UIColor.Black;
+                    cardText.BackgroundColor = UIColor.White;
+
+                    if (Card.Suit == "Hearts" || Card.Suit == "Diamonds")
+                    {
+                        cardText.TextColor = UIColor.Red;
+                    }
+                    else
+                    {
+                        cardText.TextColor = UIColor.Black;
+                    }
                 }
             }
             else
             {
-                cardText.Text = "Empty";
-                cardText.TextColor = UIColor.Black;
+                ResetCard();
             }
+        }
+
+        private void ResetCard()
+        {
+            Card = null;
+            cardText.Text = "Empty";
+            cardText.BackgroundColor = UIColor.White;
+            cardText.TextColor = UIColor.Black;
+            IsSelected = false;
         }
     }
 }

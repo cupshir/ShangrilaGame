@@ -37,8 +37,10 @@ namespace ShangrilaRummy
                 }
 
                 // create new cardView and add to group views
-                cardView = new CardView();
-                cardView.Frame = new CGRect(posX, posY, 50, 75);
+                cardView = new CardView
+                {
+                    Frame = new CGRect(posX, posY, 50, 75)
+                };
 
                 cardView.SetCard(card);
                 CardViews.Add(cardView);

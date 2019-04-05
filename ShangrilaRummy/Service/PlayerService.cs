@@ -20,7 +20,7 @@ namespace ShangrilaRummy.Service
                 IsDealer = false,
                 IsBuyer = false,
                 IsWinner = false,
-                SeatNumber = 0,
+                SeatNumber = seatNumber,
                 Hand = new Hand(),
                 TableHands = new List<Hand>()
             };
